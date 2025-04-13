@@ -1,0 +1,30 @@
+{
+  "name": "hangman-app",
+  "version": "1.0.0",
+  "description": "Hangman App",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VithusanU/Hangman-App.git"
+  },
+  "keywords": [
+    "hangman",
+    "game",
+    "word-guessing",
+    "puzzle",
+    "interactive",
+    "fun",
+    "javascript",
+    "challenge",
+    "educational"
+  ],
+  "author": "VithusanU",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VithusanU/Hangman-App/issues"
+  },
+  "homepage": "https://github.com/VithusanU/Hangman-App#readme"
+}
