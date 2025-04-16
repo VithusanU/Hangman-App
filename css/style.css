@@ -64,3 +64,34 @@ body {
     z-index: 0;
     position: absolute;
 }
+
+/* Curtain base style */
+.curtain {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-color: black;
+    z-index: 2;
+    transition: transform 2s ease-in-out;
+}
+
+/* Left and right positions */
+.left-curtain {
+    left: 0;
+    transform: translateX(0);
+}
+
+.right-curtain {
+    right: 0;
+    transform: translateX(0);
+}
+
+/* When curtains open */
+.left-curtain.open {
+    transform: translateX(-100%);
+}
+
+.right-curtain.open {
+    transform: translateX(100%);
+}
