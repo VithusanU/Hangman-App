@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+}
+
+/* Loading screen styles */
+#loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Loading text */
+#loading {
+    font-size: 50px;
+    text-align: center;
+    margin: 0;
+    color: #ffffff;
+}
+
+/* Each letter style */
+#loading span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+/* Bounce on hover per letter */
+#loading span:hover {
+    animation: bounce 0.6s ease;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+    0%   { transform: translateY(0); }
+    30%  { transform: translateY(-10px); }
+    50%  { transform: translateY(0); }
+    70%  { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+/* Main game content (initially hidden) */
+#main-game {
+    display: none;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Loading image */
+#loading-image {
+    object-fit: cover;
+    object-position: center;
+    background-color: black;
+    width: 100%;
+    height: auto;
+    opacity: 0.4;
+    z-index: 0;
+    position: absolute;
+}
