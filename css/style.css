@@ -15,6 +15,7 @@ body {
     color: white;
     flex-direction: column;
     position: relative;
+    overflow: hidden;
 }
 
 /* Loading text */
@@ -63,6 +64,7 @@ body {
     opacity: 0.4;
     z-index: 0;
     position: absolute;
+    
 }
 
 /* Curtain base style */

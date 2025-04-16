@@ -13,6 +13,7 @@ window.addEventListener('load', () => {
         loadingScreen.style.display = 'none';
         mainGame.style.display = 'block';
     }, 8000); // match transition time
+
 });
 
 
