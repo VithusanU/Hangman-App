@@ -8,15 +8,14 @@ window.addEventListener('load', () => {
     leftCurtain.classList.add('open');
     rightCurtain.classList.add('open');
 
-    // Wait for animation to finish (1s), then show main content
+    // Wait for animation to finish, then show main game
     setTimeout(() => {
         loadingScreen.style.display = 'none';
-        mainGame.style.display = 'block';
-    }, 8000); // match transition time
-
+        mainGame.style.display = 'flex'; // Make it visible and flexbox-aligned
+        mainGame.classList.add('show');  // Trigger opacity + scale transition
+    }, 8000); // Match curtain animation timing
 });
 
-
-
+// Music volume control
 const music = document.getElementById('bg-music');
-music.volume = 0.2; // Set volume to 10%
+music.volume = 0.10; // Set volume to 10%

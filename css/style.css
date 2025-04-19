@@ -5,7 +5,7 @@ body {
     background-color: black;
 }
 
-/* Loading screen styles */
+/* Loading Screen */
 #loading-screen {
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@ body {
     overflow: hidden;
 }
 
-/* Loading text */
+/* Loading Animation */
 #loading {
     font-size: 50px;
     text-align: center;
@@ -26,18 +26,15 @@ body {
     color: #ffffff;
 }
 
-/* Each letter style */
 #loading span {
     display: inline-block;
     transition: transform 0.2s ease;
 }
 
-/* Bounce on hover per letter */
 #loading span:hover {
     animation: bounce 0.6s ease;
 }
 
-/* Bounce animation */
 @keyframes bounce {
     0%   { transform: translateY(0); }
     30%  { transform: translateY(-10px); }
@@ -46,15 +43,7 @@ body {
     100% { transform: translateY(0); }
 }
 
-/* Main game content (initially hidden) */
-#main-game {
-    display: none;
-    background-color: black;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-/* Loading image */
+/* Loading Image */
 #loading-image {
     object-fit: cover;
     object-position: center;
@@ -64,10 +53,9 @@ body {
     opacity: 0.4;
     z-index: 0;
     position: absolute;
-    
 }
 
-/* Curtain base style */
+/* Curtains */
 .curtain {
     position: absolute;
     top: 0;
@@ -78,22 +66,75 @@ body {
     transition: transform 2s ease-in-out;
 }
 
-/* Left and right positions */
-.left-curtain {
-    left: 0;
-    transform: translateX(0);
+.left-curtain { left: 0; transform: translateX(0); }
+.right-curtain { right: 0; transform: translateX(0); }
+
+.left-curtain.open { transform: translateX(-100%); }
+.right-curtain.open { transform: translateX(100%); }
+
+/* MAIN GAME SECTION (FIXED) */
+#main-game {
+    display: none; /* hidden initially */
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 1.5s ease-in, transform 1.5s ease-in;
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.right-curtain {
-    right: 0;
-    transform: translateX(0);
+#main-game.show {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
 }
 
-/* When curtains open */
-.left-curtain.open {
-    transform: translateX(-100%);
+#main-game h1 {
+    font-size: 80px;
 }
 
-.right-curtain.open {
-    transform: translateX(100%);
+#main-game h1:hover {
+    animation: bounce 0.6s ease;
+}
+
+#start-game-button {
+    height: 40px;
+    width: 300px;
+    font-size: 30px;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    color: white;
+    background-color: rgb(116, 224, 250);
+}
+
+#start-game-button:hover {
+    cursor: pointer;
+    animation: bounce 0.6s ease;
+}
+
+/* Use class for multiple buttons */
+.begin-button {
+    display: none;
+    height: 40px;
+    width: 300px;
+    font-size: 30px;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    color: white;
+    background-color: rgb(116, 224, 250);
+}
+
+#glow {
+    font-size: 48px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 20px #0ff;
+    animation: glowPulse 2s infinite alternate;
 }
