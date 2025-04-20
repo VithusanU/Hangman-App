@@ -26,25 +26,35 @@
         <h1 id="glow">Hangman</h1>
         <button id="start-game-button">Start Game</button>
         <div>
-            <button class="begin-button">Word Mode</button>
-            <button class="begin-button">Slogan Mode</button>
+            <button class="begin-button" id="word-mode">Word Mode</button>
+            <button class="begin-button" id="slogan-mode">Slogan Mode</button>
         </div>
     </div>
     <script src="./js/loading-screen.js"></script>
     <script src="./js/main-game.js"></script>
 
     <div id="game-screen">
-        <select name="Words" id="word">
-            <option value="3">3</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-        </select>
+        <!--This selection option determines how many words you want to try to solve-->
+        <div>
+            <img src="" alt="">
+            <i class="ph ph-book-open"></i>
+            <select name="Words" id="word">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <!--This selection option determines how many slogans you want to try to solve-->
         <select name="Slogans" id="slogan">
             <option value="3">3</option>
             <option value="5">5</option>
             <option value="10">10</option>
         </select>
-
+        <!--You select the amount of mistakes/lives your game attempt-->
+        <select name="lives" id="lives">
+            <option value="3">3</option>
+            <option value="5">5</option>
+        </select>
     </div>
 </body>
 

@@ -1,5 +1,7 @@
 const modeButtons = document.querySelectorAll(".begin-button");
 const startGameButton = document.getElementById('start-game-button');
+const wordMode = document.getElementById('word-mode');
+const sloganMode = document.getElementById('slogan-mode');
 const fireflyContainer = document.getElementById('firefly-container');
 const numFireflies = 25;
 
@@ -14,8 +16,9 @@ startGameButton.addEventListener("click", () => {
 });
 
 
+wordMode.addEventListener('click', () => {
 
-
+})
 
 
 
