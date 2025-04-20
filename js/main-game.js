@@ -14,6 +14,28 @@ startGameButton.addEventListener("click", () => {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //This function sets the background for fireflyContainer
 for (let i = 0; i < numFireflies; i++) {
     const firefly = document.createElement('div');

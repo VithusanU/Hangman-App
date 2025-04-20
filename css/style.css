@@ -36,11 +36,25 @@ body {
 }
 
 @keyframes bounce {
-    0%   { transform: translateY(0); }
-    30%  { transform: translateY(-10px); }
-    50%  { transform: translateY(0); }
-    70%  { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
+    0% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-10px);
+    }
+
+    50% {
+        transform: translateY(0);
+    }
+
+    70% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 /* Loading Image */
@@ -66,15 +80,28 @@ body {
     transition: transform 2s ease-in-out;
 }
 
-.left-curtain { left: 0; transform: translateX(0); }
-.right-curtain { right: 0; transform: translateX(0); }
+.left-curtain {
+    left: 0;
+    transform: translateX(0);
+}
 
-.left-curtain.open { transform: translateX(-100%); }
-.right-curtain.open { transform: translateX(100%); }
+.right-curtain {
+    right: 0;
+    transform: translateX(0);
+}
+
+.left-curtain.open {
+    transform: translateX(-100%);
+}
+
+.right-curtain.open {
+    transform: translateX(100%);
+}
 
 /* MAIN GAME SECTION (FIXED) */
 #main-game {
-    display: none; /* hidden initially */
+    display: none;
+    /* hidden initially */
     opacity: 0;
     transform: scale(0.95);
     transition: opacity 1.5s ease-in, transform 1.5s ease-in;
@@ -128,7 +155,9 @@ body {
     font-size: 30px;
     font-family: 'Trebuchet MS', Arial, sans-serif;
     color: white;
+    text-indent: 10px;
     background-color: rgb(116, 224, 250);
+    margin: 20px 0;
 }
 
 #glow {
@@ -137,4 +166,34 @@ body {
     color: #fff;
     text-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 20px #0ff;
     animation: glowPulse 2s infinite alternate;
+}
+
+#firefly-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Prevent interaction with fireflies */
+    overflow: hidden;
+    /* Prevent fireflies from overflowing the container */
+    z-index: 1;
+    /* Ensure fireflies are behind the main content */
+}
+
+.firefly {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #ffffcc, #46d3c2, transparent);
+    border-radius: 50%;
+    animation: blink 2s infinite alternate;
+    opacity: 0.8;
+}
+
+
+@keyframes blink {
+    0% {opacity: 0.3;}
+    100% {opacity: 1;}
 }

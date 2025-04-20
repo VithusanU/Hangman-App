@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,8 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body id="body" >
-    <audio id="bg-music" src="./audio/Lil Tecca - Trippin On U Instrumental.mp3" autoplay loop ></audio>
+<body id="body">
+    <audio id="bg-music" src="./audio/Lil Tecca - Trippin On U Instrumental.mp3" autoplay loop></audio>
     <!--This is the loading Screen div-->
     <div id="loading-screen">
         <div class="curtain left-curtain"></div>
@@ -20,15 +21,31 @@
     </div>
 
     <!-- This is the main content-->
-<div id="main-game">
-        <h1 id="glow">Hangman!</h1>
+    <div id="firefly-container"></div>
+    <div id="main-game">
+        <h1 id="glow">Hangman</h1>
         <button id="start-game-button">Start Game</button>
         <div>
-            <button id="begin-button">Word Mode</button>
-            <button id="begin-button">Slogan Mode</button>
+            <button class="begin-button">Word Mode</button>
+            <button class="begin-button">Slogan Mode</button>
         </div>
-    </div> 
+    </div>
     <script src="./js/loading-screen.js"></script>
+    <script src="./js/main-game.js"></script>
+
+    <div id="game-screen">
+        <select name="Words" id="word">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+        </select>
+        <select name="Slogans" id="slogan">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+        </select>
+
+    </div>
 </body>
 
 </html>
