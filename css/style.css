@@ -194,6 +194,44 @@ body {
 
 
 @keyframes blink {
-    0% {opacity: 0.3;}
-    100% {opacity: 1;}
+    0% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#game-screen select {
+    display: none;
+    height: 50px;
+    width: 100px;
+    font-size: 30px;
+    text-align: center;
+    font-family:'great-vibes-regular';
+    font-weight: 500;
+}
+
+#game-screen select option {
+    background-color: rgb(234, 234, 234);
+}
+
+
+#game-screen {
+    display: none;
+    width: 80%;
+    /* Adjust width as needed */
+    max-width: 600px;
+    /* Optional: cap it for larger screens */
+    height: 100%;
+    padding: 40px;
+    /* Inner spacing */
+    margin: 40px auto;
+    /* Vertical + horizontal centering */
+    background-color: rgba(255, 255, 255, 0.894);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    /* Optional soft glow */
+
 }

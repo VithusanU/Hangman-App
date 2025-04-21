@@ -1,7 +1,11 @@
 const modeButtons = document.querySelectorAll(".begin-button");
 const startGameButton = document.getElementById('start-game-button');
+const mainGame = document.getElementById('main-game');
+const gameScreen = document.getElementById('game-screen');
 const wordMode = document.getElementById('word-mode');
+const wordWindow = document.getElementById('word-selection-window');
 const sloganMode = document.getElementById('slogan-mode');
+const sloganWindow = document.getElementById('slogan-selection-window')
 const fireflyContainer = document.getElementById('firefly-container');
 const numFireflies = 25;
 
@@ -15,11 +19,25 @@ startGameButton.addEventListener("click", () => {
     });
 });
 
-
+// This will be my display when in word mode selection
 wordMode.addEventListener('click', () => {
+    mainGame.style.display = 'none';
+    gameScreen.style.display = 'flex';
+    sloganWindow.style.display = 'none';
 
+    document.getElementById('word').style.display = 'block';
+    document.getElementById('lives'). style.display = 'block';
+});
+
+//This will be my display when in slogan mode selection
+sloganMode.addEventListener('click', () => {
+    mainGame.style.display = 'none';
+    gameScreen.style.display = 'flex';
+    wordWindow.style.display = 'none';
+
+    document.getElementById('slogan').style.display = 'block';
+    document.getElementById('lives').style.display = 'block';
 })
-
 
 
 
@@ -58,11 +76,11 @@ for (let i = 0; i < numFireflies; i++) {
 
     fireflyContainer.appendChild(firefly);
 
-    function animate()  {
-        x+= dx;
-        y+= dy;
+    function animate() {
+        x += dx;
+        y += dy;
 
-        
+
         // Reverse direction if hitting window bounds
         if (x <= 0 || x >= window.innerWidth) dx *= -1;
         if (y <= 0 || y >= window.innerHeight) dy *= -1;
