@@ -2,7 +2,12 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Courier New', Courier, monospace;
-    background-color: black;
+    background-image: url('../img/starry.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: black; /* fallback */
 }
 
 /* Loading Screen */
@@ -16,6 +21,11 @@ body {
     flex-direction: column;
     position: relative;
     overflow: hidden;
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease;
 }
 
 /* Loading Animation */
@@ -106,7 +116,7 @@ body {
     transform: scale(0.95);
     transition: opacity 1.5s ease-in, transform 1.5s ease-in;
     visibility: hidden;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.7); /* translucent black */
     color: white;
     font-family: 'Courier New', Courier, monospace;
     text-align: center;

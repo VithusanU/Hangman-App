@@ -7,13 +7,14 @@ window.addEventListener('load', () => {
     // Trigger the curtain open animation
     leftCurtain.classList.add('open');
     rightCurtain.classList.add('open');
+    loadingScreen.classList.add("fade-out");
 
     // Wait for animation to finish, then show main game
     setTimeout(() => {
         loadingScreen.style.display = 'none';
         mainGame.style.display = 'flex'; // Make it visible and flexbox-aligned
         mainGame.classList.add('show');  // Trigger opacity + scale transition
-    }, 8000); // Match curtain animation timing
+    }, 4000); // Match curtain animation timing
 });
 
 // Music volume control
