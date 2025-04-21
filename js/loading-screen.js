@@ -18,5 +18,5 @@ window.addEventListener('load', () => {
 
 // Music volume control
 const music = document.getElementById('bg-music');
-music.volume = 0.00; // Set volume to 0%
+music.volume = 0.10; // Set volume to 0%
 

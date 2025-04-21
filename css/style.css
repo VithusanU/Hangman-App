@@ -206,7 +206,7 @@ body {
 #game-screen select {
     display: none;
     height: 50px;
-    width: 100px;
+    min-width: 100px;
     font-size: 30px;
     text-align: center;
     font-family:'great-vibes-regular';
@@ -222,9 +222,9 @@ body {
     display: none;
     width: 80%;
     /* Adjust width as needed */
-    max-width: 600px;
+    min-width: 600px;
     /* Optional: cap it for larger screens */
-    height: 100%;
+    min-height: 750px;
     padding: 40px;
     /* Inner spacing */
     margin: 40px auto;
