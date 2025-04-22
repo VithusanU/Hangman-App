@@ -26,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/VithusanU/Hangman-App/issues"
   },
-  "homepage": "https://github.com/VithusanU/Hangman-App#readme"
+  "homepage": "https://github.com/VithusanU/Hangman-App#readme",
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0"
+  }
 }

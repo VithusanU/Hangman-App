@@ -56,6 +56,38 @@ async function getRandomWord() {
     }
 }
 
+let currentWord = '';
+let guessedLetters = [];
+
+function initializeGameWithWord(word) {
+    currentWord = word;
+    guessedLetters = [];
+
+    const wordDisplay = document.getElementById('chosen-word');
+    wordDisplay.innerHTML = '';
+
+
+    for (let letter of currentWord){
+        const letterSpan = document.createElement('span');
+        letterSpan.textContent = '_'; //blank for each letter
+        letterSpan.classList.add('letter');
+        wordDisplay.appendChild(letterSpan);
+    }
+
+    console.log("Game Initialized with word:", word);
+}
+
+
+
+
+
+
+
+
+async function startHangoverGame() {
+    const word = await getRandomWord();
+    initializeGameWithWord(word);
+}
 
 
 
@@ -65,6 +97,5 @@ async function getRandomWord() {
 
 
 
-
-
-
+//This line is for debugging purposes
+startHangoverGame();
