@@ -34,7 +34,7 @@
     <div id="game-screen">
         <!--This selection option determines how many words you want to try to solve-->
         <div id="word-selection-window">
-            <i class="ph ph-book-open"></i>
+            <!--Add icon/image-->
             <select name="Words" id="word">
                 <option value="3">3</option>
                 <option value="5">5</option>
@@ -45,7 +45,7 @@
         </div>
         <div id="slogan-selection-window">
             <!--This selection option determines how many slogans you want to try to solve-->
-            <i class="ph ph-book-open"></i>
+            <!--Add icon/image-->
             <select name="Slogans" id="slogan">
                 <option value="3">3</option>
                 <option value="5">5</option>
@@ -60,8 +60,12 @@
             <option value="5">5</option>
         </select>
         <p>Determine the amount of lives you have</p>
-
+        <!--Add icon/image-->
         <div id="game">
+            <div id="lives-container"></div>
+            <div id="hangman-container"></div>
+            <div id="letters"></div>
+            <div id="chosen-word"></div>
         </div>
     </div>
     <script src="./js/loading-screen.js"></script>
