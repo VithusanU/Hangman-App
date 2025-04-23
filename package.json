@@ -4,7 +4,7 @@
   "description": "Hangman App",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,10 @@
   },
   "homepage": "https://github.com/VithusanU/Hangman-App#readme",
   "devDependencies": {
-    "chai": "^5.2.0",
+    "jsdom": "^26.1.0",
     "mocha": "^11.1.0"
+  },
+  "dependencies": {
+    "chai": "^4.3.7"
   }
 }

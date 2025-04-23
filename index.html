@@ -2,74 +2,122 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangman-App</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Great+Vibes&family=Poetsen+One&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hangman-App</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Great+Vibes&family=Poetsen+One&display=swap"
+    rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body id="body">
-    <audio id="bg-music" src="./audio/Lil Tecca - Trippin On U Instrumental.mp3" autoplay loop></audio>
-    <!--This is the loading Screen div-->
-    <div id="loading-screen">
-        <div class="curtain left-curtain"></div>
-        <div class="curtain right-curtain"></div>
-        <!-- <img src="./img/starry.svg" alt="loading" id="loading-image"> -->
-    </div>
+  <!-- Background Music -->
+  <audio id="bg-music" src="./audio/Lil Tecca - Trippin On U Instrumental.mp3" autoplay loop></audio>
 
-    <!-- This is the main content-->
-    <div id="firefly-container"></div>
-    <div id="main-game">
-        <h1 id="glow">Hangman</h1>
-        <button id="start-game-button">Start Game</button>
-        <div>
-            <button class="begin-button" id="word-mode">Word Mode</button>
-            <button class="begin-button" id="slogan-mode">Slogan Mode</button>
-        </div>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="curtain left-curtain"></div>
+    <div class="curtain right-curtain"></div>
+  </div>
+
+  <!-- Main Menu -->
+  <div id="firefly-container"></div>
+  <div id="main-game">
+    <h1 id="glow">Hangman</h1>
+    <button id="start-game-button">Start Game</button>
+    <div>
+      <button class="begin-button" id="word-mode">Word Mode</button>
+      <button class="begin-button" id="slogan-mode">Slogan Mode</button>
     </div>
-    <div id="game-screen">
-        <!--This selection option determines how many words you want to try to solve-->
-        <div id="word-selection-window">
-            <!--Add icon/image-->
-            <select name="Words" id="word">
-                <option value="3">3</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-            </select>
-            <h1>Rules</h1>
-            <p>Select the number of words you will like to attempt</p>
-        </div>
-        <div id="slogan-selection-window">
-            <!--This selection option determines how many slogans you want to try to solve-->
-            <!--Add icon/image-->
-            <select name="Slogans" id="slogan">
-                <option value="3">3</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-            </select>
-            <h1>Rules</h1>
-            <p>Select the number of slogans you will like to attempt</p>
-        </div>
-        <!--You select the amount of mistakes/lives your game attempt-->
-        <select name="lives" id="lives">
+  </div>
+
+  <!-- Game Settings Screens -->
+  <div id="game-screen">
+
+    <!-- Word Mode Settings -->
+    <div id="word-selection-window">
+      <div class="header">
+        <h1>Game Settings</h1>
+      </div>
+      <div class="settings-row">
+        <div class="settings-box" id="word-selection">
+          <label for="word">Select Words</label>
+          <select name="Words" id="word">
             <option value="3">3</option>
             <option value="5">5</option>
-        </select>
-        <p>Determine the amount of lives you have</p>
-        <!--Add icon/image-->
-        <div id="game">
-            <div id="lives-container"></div>
-            <div id="hangman-container"></div>
-            <div id="letters"></div>
-            <div id="chosen-word"></div>
+            <option value="10">10</option>
+          </select>
         </div>
+
+        <div class="settings-box" id="lives-selection">
+          <label for="lives">Select Lives</label>
+          <select name="Lives" id="lives">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="7">7</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="rules">
+        <h2>Rules</h2>
+        <p>Select the number of words and lives you'd like to attempt.</p>
+        <button id="play-word-button">Play</button>
+      </div>
     </div>
-    <script src="./js/loading-screen.js"></script>
-    <script src="./js/main-game.js"></script>
+
+    <!-- Slogan Mode Settings -->
+    <div id="slogan-selection-window">
+      <div class="header">
+        <h1>Game Settings</h1>
+      </div>
+      <div class="settings-row">
+        <div class="settings-box" id="slogan-selection">
+          <label for="slogan">Select Slogans</label>
+          <select name="Slogans" id="slogan">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+
+        <div class="settings-box" id="slogan-lives-selection">
+          <label for="slogan-lives">Select Lives</label>
+          <select name="SloganLives" id="slogan-lives">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="7">7</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="rules">
+        <h2>Rules</h2>
+        <p>Select the number of slogans and lives you’d like to attempt.</p>
+        <button id="play-slogan-button">Play</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Game UI -->
+  <div id="game">
+    <div id="lives-container"></div>
+    <div id="hangman-container"></div>
+    <div id="letters"></div>
+    <div id="chosen-word"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="./js/loading-screen.js"></script>
+  <script type="text/javascript" src="./js/main-game.js"></script>
+  <script type="text/javascript" src="./js/game-logic.js"></script>
 </body>
 
 </html>

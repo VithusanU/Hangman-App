@@ -1,101 +1,70 @@
-const modeButtons = document.querySelectorAll(".begin-button");
+// === DOM ELEMENT REFERENCES ===
 const startGameButton = document.getElementById('start-game-button');
+const modeButtons = document.querySelectorAll('.begin-button');
 const mainGame = document.getElementById('main-game');
 const gameScreen = document.getElementById('game-screen');
 const wordMode = document.getElementById('word-mode');
-const wordWindow = document.getElementById('word-selection-window');
 const sloganMode = document.getElementById('slogan-mode');
+const wordWindow = document.getElementById('word-selection-window');
 const sloganWindow = document.getElementById('slogan-selection-window');
 const gameArea = document.getElementById('game');
-const wordBank = [];
 
+const playWordButton = document.getElementById('play-word-button');
+const playSloganButton = document.getElementById('play-slogan-button');
 
-//This works with the start button/mode buttons
-startGameButton.addEventListener("click", () => {
-    startGameButton.style.display = "none";
+const wordValue = document.getElementById('word');
+const sloganValue = document.getElementById('slogan');
+const livesValue = document.getElementById('lives');
+const sloganLives = document.getElementById('slogan-lives');
 
+// === GAME START BUTTON ===
+startGameButton.addEventListener('click', () => {
+    startGameButton.style.display = 'none';
     modeButtons.forEach(button => {
-        button.style.display = "block";
+        button.style.display = 'block';
     });
 });
 
-// This will be my display when in word mode selection
+// === MODE SELECTION ===
 wordMode.addEventListener('click', () => {
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
+    wordWindow.style.display = 'flex';
     sloganWindow.style.display = 'none';
-
-    document.getElementById('word').style.display = 'block';
-    document.getElementById('lives'). style.display = 'block';
+    gameArea.style.display = 'none';
 });
 
-//This will be my display when in slogan mode selection
 sloganMode.addEventListener('click', () => {
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
     wordWindow.style.display = 'none';
+    sloganWindow.style.display = 'flex';
+    gameArea.style.display = 'none';
+});
 
-    document.getElementById('slogan').style.display = 'block';
-    document.getElementById('lives').style.display = 'block';
-})
+// === PLAY BUTTONS ===
+playWordButton.addEventListener('click', () => {
+    const wordCount = wordValue.value;
+    const lives = livesValue.value;
 
+    console.log(`Starting Word Mode with ${wordCount} words and ${lives} lives`);
 
-//This will be the game logic
+    gameScreen.style.display = 'none';
+    gameArea.style.display = 'block';
 
+    // Initialize Word Mode Game
+    // initWordGame(wordCount, lives);
+});
 
-async function getRandomWord() {
-    try {
-        const response = await fetch ('https://random-word-api.herokuapp.com/word?number=1') // fetches response
-        const data = await response.json(); //This converts the raw HTTP response into a JavaScript object/array.
-        const word = data[0]; // Extracts the first word
-        console.log('Random Word:', word);
-        return word.toLowerCase();
-    } catch (error) {
-        console.error('Failed to get word:', error);
-        return 'fallback';
-    }
-}
+playSloganButton.addEventListener('click', () => {
+    const sloganCount = sloganValue.value;
+    const lives = sloganLives.value;
 
-let currentWord = '';
-let guessedLetters = [];
+    console.log(`Starting Slogan Mode with ${sloganCount} slogans and ${lives} lives`);
 
-function initializeGameWithWord(word) {
-    currentWord = word;
-    guessedLetters = [];
+    gameScreen.style.display = 'none';
+    gameArea.style.display = 'block';
 
-    const wordDisplay = document.getElementById('chosen-word');
-    wordDisplay.innerHTML = '';
-
-
-    for (let letter of currentWord){
-        const letterSpan = document.createElement('span');
-        letterSpan.textContent = '_'; //blank for each letter
-        letterSpan.classList.add('letter');
-        wordDisplay.appendChild(letterSpan);
-    }
-
-    console.log("Game Initialized with word:", word);
-}
-
-
-
-
-
-
-
-
-async function startHangoverGame() {
-    const word = await getRandomWord();
-    initializeGameWithWord(word);
-}
-
-
-
-
-
-
-
-
-
-//This line is for debugging purposes
-startHangoverGame();
+    // Initialize Slogan Mode Game
+    // initSloganGame(sloganCount, lives);
+});
