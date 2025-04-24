@@ -277,3 +277,39 @@ body {
     0% { opacity: 0.3; }
     100% { opacity: 1; }
 }
+
+
+/* Transition setup */
+#hangman-loader line,
+#hangman-loader circle {
+  transition: opacity 0.4s ease;
+}
+
+/* Reveal sequence with delays */
+#hangman-loader.show #head { opacity: 1; transition-delay: 0.8s; }
+#hangman-loader.show #body { opacity: 1; transition-delay: 1.5s; }
+#hangman-loader.show #leftArm { opacity: 1; transition-delay: 2s; }
+#hangman-loader.show #rightArm { opacity: 1; transition-delay: 2.5s; }
+#hangman-loader.show #leftLeg { opacity: 1; transition-delay: 3s; }
+#hangman-loader.show #rightLeg { opacity: 1; transition-delay: 3.5s; }
+
+/* Start hidden */
+#hangman-loader #head,
+#hangman-loader #body,
+#hangman-loader #leftArm,
+#hangman-loader #rightArm,
+#hangman-loader #leftLeg,
+#hangman-loader #rightLeg {
+  opacity: 0;
+}
+
+#hangman-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+    top: 40%;
+}
+
