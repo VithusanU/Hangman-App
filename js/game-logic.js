@@ -1,6 +1,8 @@
 globalThis.currentWord = '';
 globalThis.guessedLetters = [];
-
+let wordsToGuess = []; //The list of words
+let currentWordIndex = 0;
+let wordRounds = 0;
 
 // Fetch a random word
 async function getRandomWord() {
@@ -42,11 +44,23 @@ function initializeGameWithWord(word) {
     globalThis.guessedLetters = guessedLetters;
 }
 
+
+
 // Start game using fetched word
 async function startHangoverGame() {
+    if (wordRounds <= 0) {
+        alert('Game Over! You have completed all rounds.');
+        return;
+    }
+
+    generateLetterButtons(); // recreate all buttons fresh every new round
     const word = await getRandomWord();
     initializeGameWithWord(word);
+
+    // Reduce remaining rounds
+    wordRounds--;
 }
+
 
 function generateLetterButtons() {
     const lettersContainer = document.getElementById('letters');
@@ -108,12 +122,15 @@ function handleWrongGuess() {
 }
 
 function endGame(win) {
-    const message = win ? 'You Win! 🎉' : 'Game Over 💀';
-    alert(message);
+    if(win) {
+        alert('You guessed the Word! 🎉 New word coming up ...');
+        startHangoverGame();
 
-    // Disable all letter buttons
-    const allButtons = document.querySelectorAll('.letter-button');
-    allButtons.forEach(btn => btn.disabled = true);
+    } else {
+        alert('Game Over 💀');
+        const allButtons = document.querySelectorAll('.letter-button');
+        allButtons.forEach(btn => btn.disabled = true);
+    }
 }
 
 function checkWinCondition() {
@@ -122,12 +139,15 @@ function checkWinCondition() {
 
     const allRevealed = [...spans].every(span => span.textContent !== '');
     if (allRevealed) {
-        endGame(true);
+        if (wordRounds > 0) {
+            alert('You guessed the word! Moving on to the next word...');
+            startHangoverGame();
+        } else {
+            endGame(true);
+        }
     }
 }
 
-// Call this when you initialize the game
-generateLetterButtons();
 
 // Auto-run only if browser
 if (typeof window !== 'undefined') {

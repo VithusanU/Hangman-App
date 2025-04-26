@@ -77,15 +77,17 @@ playSloganButton.addEventListener('click', () => {
 function initWordGame(wordCount, selectedLives) {
     maxLives = selectedLives;
     livesLeft = maxLives;
+    wordRounds = parseInt(wordCount);  // Set the number of rounds based on user selection
     renderLives();
-    startHangoverGame();
+    startHangoverGame();  // Start the game with the selected number of rounds
 }
 
 function initSloganGame(sloganCount, selectedLives) {
     maxLives = selectedLives;
     livesLeft = maxLives;
+    wordRounds = parseInt(sloganCount);  // Set the number of rounds based on user selection
     renderLives();
-    startHangoverGame(); // Adjust if your slogan game uses a different fetch
+    startHangoverGame();  // Start the game with the selected number of rounds
 }
 
 function renderLives() {
