@@ -1,6 +1,7 @@
 globalThis.currentWord = '';
 globalThis.guessedLetters = [];
 
+
 // Fetch a random word
 async function getRandomWord() {
     try {
@@ -27,7 +28,7 @@ function initializeGameWithWord(word) {
 
             for (let letter of currentWord) {
                 const letterSpan = document.createElement('span');
-                letterSpan.textContent = '_';
+                letterSpan.textContent = '';
                 letterSpan.classList.add('letter');
                 wordDisplay.appendChild(letterSpan);
             }
@@ -47,7 +48,88 @@ async function startHangoverGame() {
     initializeGameWithWord(word);
 }
 
+function generateLetterButtons() {
+    const lettersContainer = document.getElementById('letters');
+    lettersContainer.innerHTML = ''; // Clear previous content if needed
+
+    for (let i = 65; i <= 90; i++) {
+        const letter = String.fromCharCode(i);
+        const button = document.createElement('button');
+        button.textContent = letter;
+        button.classList.add('letter-button');
+        button.setAttribute('data-letter', letter);
+        button.addEventListener('click', () => {
+            handleLetterClick(letter); // Replace with your own handler
+        });
+        lettersContainer.appendChild(button);
+    }
+}
+
+function handleLetterClick(letter) {
+    const lowerLetter = letter.toLowerCase();
+    const button = document.querySelector(`[data-letter="${letter}"]`);
+
+    if (guessedLetters.includes(lowerLetter)) return;
+    guessedLetters.push(lowerLetter);
+
+    if (currentWord.includes(lowerLetter)) {
+        console.log(`Correct guess: ${letter}`);
+        button.style.backgroundColor = 'green';
+        button.style.color = 'white';
+
+        const wordDisplay = document.getElementById('chosen-word');
+        const spans = wordDisplay.querySelectorAll('span');
+
+        for (let i = 0; i < currentWord.length; i++) {
+            if (currentWord[i] === lowerLetter) {
+                spans[i].textContent = currentWord[i];
+            }
+        }
+
+        checkWinCondition(); // If this is defined
+    } else {
+        console.log(`Wrong guess: ${letter}`);
+        button.style.backgroundColor = 'red';
+        button.style.color = 'white';
+
+        handleWrongGuess(); // Optional function
+    }
+
+    button.disabled = true;
+}
+
+function handleWrongGuess() {
+    livesLeft--;
+    renderLives?.();
+
+    if (livesLeft <= 0) {
+        endGame(false); // You'll define this function
+    }
+}
+
+function endGame(win) {
+    const message = win ? 'You Win! 🎉' : 'Game Over 💀';
+    alert(message);
+
+    // Disable all letter buttons
+    const allButtons = document.querySelectorAll('.letter-button');
+    allButtons.forEach(btn => btn.disabled = true);
+}
+
+function checkWinCondition() {
+    const wordDisplay = document.getElementById('chosen-word');
+    const spans = wordDisplay.querySelectorAll('span');
+
+    const allRevealed = [...spans].every(span => span.textContent !== '');
+    if (allRevealed) {
+        endGame(true);
+    }
+}
+
+// Call this when you initialize the game
+generateLetterButtons();
+
 // Auto-run only if browser
 if (typeof window !== 'undefined') {
-    startHangoverGame();
+    generateLetterButtons();
 }

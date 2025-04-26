@@ -17,6 +17,10 @@ const sloganValue = document.getElementById('slogan');
 const livesValue = document.getElementById('lives');
 const sloganLives = document.getElementById('slogan-lives');
 
+globalThis.maxLives = 0;
+globalThis.livesLeft = 0;
+
+
 // === GAME START BUTTON ===
 startGameButton.addEventListener('click', () => {
     startGameButton.style.display = 'none';
@@ -53,7 +57,7 @@ playWordButton.addEventListener('click', () => {
     gameArea.style.display = 'block';
 
     // Initialize Word Mode Game
-    // initWordGame(wordCount, lives);
+    initWordGame(wordCount, parseInt(lives));
 });
 
 playSloganButton.addEventListener('click', () => {
@@ -63,8 +67,36 @@ playSloganButton.addEventListener('click', () => {
     console.log(`Starting Slogan Mode with ${sloganCount} slogans and ${lives} lives`);
 
     gameScreen.style.display = 'none';
-    gameArea.style.display = 'block';
+    gameArea.style.display = 'flex';
 
     // Initialize Slogan Mode Game
-    // initSloganGame(sloganCount, lives);
+    initSloganGame(sloganCount, parseInt(lives));
+
 });
+
+function initWordGame(wordCount, selectedLives) {
+    maxLives = selectedLives;
+    livesLeft = maxLives;
+    renderLives();
+    startHangoverGame();
+}
+
+function initSloganGame(sloganCount, selectedLives) {
+    maxLives = selectedLives;
+    livesLeft = maxLives;
+    renderLives();
+    startHangoverGame(); // Adjust if your slogan game uses a different fetch
+}
+
+function renderLives() {
+    const container = document.getElementById('lives-container');
+    if (!container) return;
+
+    container.innerHTML = '';
+    for (let i = 0; i < maxLives; i++) {
+        const heart = document.createElement('span');
+        heart.textContent = i < livesLeft ? '❤️' : '🤍';
+        heart.classList.add('heart');
+        container.appendChild(heart);
+    }
+}
