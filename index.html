@@ -129,7 +129,21 @@
     
         <div id="hangman-wrapper">
             <div id="hangman-container">
-                <!-- SVG or canvas here -->
+                <svg width="200" height="250" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Gallows -->
+                    <line x1="20" y1="230" x2="180" y2="230" stroke="black" stroke-width="4" />
+                    <line x1="50" y1="230" x2="50" y2="30" stroke="black" stroke-width="4" />
+                    <line x1="50" y1="30" x2="150" y2="30" stroke="black" stroke-width="4" />
+                    <line x1="150" y1="30" x2="150" y2="60" stroke="black" stroke-width="4" />
+            
+                    <!-- Stick Figure -->
+                    <circle id="headGame" cx="150" cy="75" r="15" stroke="black" stroke-width="4" fill="none" />
+                    <line id="bodyGame" x1="150" y1="90" x2="150" y2="150" stroke="black" stroke-width="4" />
+                    <line id="leftArmGame" x1="150" y1="110" x2="130" y2="130" stroke="black" stroke-width="4" />
+                    <line id="rightArmGame" x1="150" y1="110" x2="170" y2="130" stroke="black" stroke-width="4" />
+                    <line id="leftLegGame" x1="150" y1="150" x2="130" y2="190" stroke="black" stroke-width="4" />
+                    <line id="rightLegGame" x1="150" y1="150" x2="170" y2="190" stroke="black" stroke-width="4" />
+                </svg>
             </div>
             <div id="letters">
                 <!-- Letter buttons here -->

@@ -3,20 +3,29 @@ globalThis.guessedLetters = [];
 let wordsToGuess = []; //The list of words
 let currentWordIndex = 0;
 let wordRounds = 0;
+let totalLives = 7; // default
+let livesLeft = totalLives;
+
+
+
 
 // Fetch a random word
 async function getRandomWord() {
     try {
-        const response = await fetch('https://random-word-api.herokuapp.com/word?number=1');
-        const data = await response.json();
-        const word = data[0];
+        let word = '';
+        do {
+            const response = await fetch('https://random-word-api.herokuapp.com/word?number=1');
+            const data = await response.json();
+            word = data[0];
+        } while (word.length < 3 || word.length > 7); // Keep fetching until we get a word of the correct length
         console.log('Random Word:', word);
         return word.toLowerCase();
     } catch (error) {
         console.error('Failed to get word:', error);
-        return 'fallback';
+        return 'fallback'; // Provide a fallback word in case of an error
     }
 }
+
 
 // Initialize the game board with underscores
 function initializeGameWithWord(word) {
@@ -56,7 +65,6 @@ async function startHangoverGame() {
     generateLetterButtons(); // recreate all buttons fresh every new round
     const word = await getRandomWord();
     initializeGameWithWord(word);
-
     // Reduce remaining rounds
     wordRounds--;
 }
@@ -114,6 +122,7 @@ function handleLetterClick(letter) {
 
 function handleWrongGuess() {
     livesLeft--;
+    updateBodyParts();
     renderLives?.();
 
     if (livesLeft <= 0) {
@@ -147,6 +156,22 @@ function checkWinCondition() {
         }
     }
 }
+
+function chooseLives(amount) {
+    totalLives = amount;
+    livesLeft = amount;
+}
+
+
+function updateBodyParts() {
+    const mistakes = maxLives - livesLeft; // How many mistakes so far
+    const partsToShow = Math.ceil((mistakes * bodyParts.length) / maxLives);
+
+    for (let i = 0; i < partsToShow; i++) {
+        bodyParts[i].style.display = 'block';
+    }
+}
+
 
 
 // Auto-run only if browser
