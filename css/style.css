@@ -412,3 +412,54 @@ body {
     background-color: #eee;
 }
 
+
+#gameEnd {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    backdrop-filter: blur(1px); /* Blurs the background */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#gameOver {
+    font-size: 80px;
+    font-family: Great Vibes;
+}
+
+#gameEnd button {
+    color: black;
+    font-weight: bolder;
+    font-size: 15px;
+    width: 140px;
+    height: 100px;
+    border-radius: 2px;
+    background-color: whitesmoke;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#gameEnd button:hover {
+    background-color: lightblue; /* Switch to ash light blue */
+    color: white; /* Text turns white */
+}
+
+#gameEnd button span {
+    position: relative;
+    z-index: 1;
+}
+
+#gameEnd.show {
+    opacity: 1;
+}

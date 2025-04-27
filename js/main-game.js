@@ -47,6 +47,7 @@ startGameButton.addEventListener('click', () => {
 
 // === MODE SELECTION ===
 wordMode.addEventListener('click', () => {
+    currentMode = 'word';
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
     wordWindow.style.display = 'flex';
@@ -55,6 +56,7 @@ wordMode.addEventListener('click', () => {
 });
 
 sloganMode.addEventListener('click', () => {
+    currentMode = 'slogan';
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
     wordWindow.style.display = 'none';

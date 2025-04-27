@@ -5,7 +5,7 @@ let currentWordIndex = 0;
 let wordRounds = 0;
 let totalLives = 7; // default
 let livesLeft = totalLives;
-
+globalThis.currentMode = ''; // Default to an empty string
 
 
 
@@ -131,15 +131,27 @@ function handleWrongGuess() {
 }
 
 function endGame(win) {
-    if(win) {
-        alert('You guessed the Word! 🎉 New word coming up ...');
-        startHangoverGame();
+    const allButtons = document.querySelectorAll('.letter-button');
+    allButtons.forEach(btn => btn.disabled = true);
 
+    // Show the Game End screen
+    showGameEnd(win);
+}
+
+function showGameEnd(win) {
+    const gameEndScreen = document.getElementById('gameEnd');
+    const gameOverText = document.getElementById('gameOver');
+
+    if (win) {
+        gameOverText.textContent = "Congrats! You Win 🎉";
     } else {
-        alert('Game Over 💀');
-        const allButtons = document.querySelectorAll('.letter-button');
-        allButtons.forEach(btn => btn.disabled = true);
+        gameOverText.textContent = "Game Over 💀";
     }
+
+    gameEndScreen.style.display = 'flex';
+    setTimeout(() => {
+        gameEndScreen.classList.add('show');
+    }, 10); // Tiny delay so CSS transition triggers
 }
 
 function checkWinCondition() {
@@ -172,9 +184,66 @@ function updateBodyParts() {
     }
 }
 
+function resetGame() {
+    // Hide the game over screen
+    const gameEndScreen = document.getElementById('gameEnd-screen');
+    gameEndScreen.style.display = 'none';
+
+    // Reset global variables (guessed letters, current word, lives, etc.)
+    guessedLetters = [];
+    currentWord = '';
+    livesLeft = totalLives;
+
+    // Reset word display if in word mode
+    if (currentMode === 'word') {
+        const wordDisplay = document.getElementById('chosen-word');
+        if (wordDisplay) {
+            wordDisplay.innerHTML = ''; // Clear the word
+        }
+    }
+
+    // Reset the hangman drawing if needed
+    if (typeof resetBodyParts === 'function') {
+        resetBodyParts();
+    }
+
+    // Hide the active game screen
+    const gameScreen = document.getElementById('game');
+    gameScreen.style.display = 'none';
+
+    // Hide any other settings windows (e.g., slogan selection window)
+    const sloganSelectionWindow = document.getElementById('slogan-selection-window');
+    if (sloganSelectionWindow) {
+        sloganSelectionWindow.style.display = 'none';
+    }
+
+    // Show the game screen with word selection window
+    const gameScreenContainer = document.getElementById('game-screen');
+    gameScreenContainer.style.display = 'flex';
+
+    const wordSelectionWindow = document.getElementById('word-selection-window');
+    if (wordSelectionWindow) {
+        wordSelectionWindow.style.display = 'flex';  // Show the word selection window
+    }
+
+    // Hide the word and slogan modes (if needed)
+    const sloganWindow = document.getElementById('slogan-selection-window');
+    if (sloganWindow) {
+        sloganWindow.style.display = 'none';
+    }
+
+    // Reset letter buttons if necessary
+    generateLetterButtons();
+}
+
+const playAgainButton = document.getElementById('playAgain');
+playAgainButton.addEventListener('click', function() {
+    resetGame();  // This will reset and show the word-selection window
+});
 
 
 // Auto-run only if browser
 if (typeof window !== 'undefined') {
     generateLetterButtons();
 }
+ 
