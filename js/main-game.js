@@ -22,6 +22,7 @@ const leftArm = document.getElementById('leftArmGame');
 const rightArm = document.getElementById('rightArmGame');
 const leftLeg = document.getElementById('leftLegGame');
 const rightLeg = document.getElementById('rightLegGame');
+const sound = document.getElementById('button-audio');
 
 
 const bodyParts = [
@@ -40,6 +41,8 @@ globalThis.livesLeft = 0;
 // === GAME START BUTTON ===
 startGameButton.addEventListener('click', () => {
     startGameButton.style.display = 'none';
+    sound.play();
+    
     modeButtons.forEach(button => {
         button.style.display = 'block';
     });
@@ -47,6 +50,7 @@ startGameButton.addEventListener('click', () => {
 
 // === MODE SELECTION ===
 wordMode.addEventListener('click', () => {
+    sound.play();
     currentMode = 'word';
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
@@ -56,6 +60,7 @@ wordMode.addEventListener('click', () => {
 });
 
 sloganMode.addEventListener('click', () => {
+    sound.play();
     currentMode = 'slogan';
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
@@ -66,6 +71,7 @@ sloganMode.addEventListener('click', () => {
 
 // === PLAY BUTTONS ===
 playWordButton.addEventListener('click', () => {
+    sound.play();
     const wordCount = wordValue.value;
     const lives = livesValue.value;
 
