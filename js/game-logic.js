@@ -6,7 +6,7 @@ let wordRounds = 0;
 let totalLives = 7; // default
 let livesLeft = totalLives;
 globalThis.currentMode = ''; // Default to an empty string
-
+const letterBtnSound = document.getElementById('letter-sound');
 
 
 // Fetch a random word
@@ -74,6 +74,7 @@ function generateLetterButtons() {
     const lettersContainer = document.getElementById('letters');
     lettersContainer.innerHTML = ''; // Clear previous content if needed
 
+
     for (let i = 65; i <= 90; i++) {
         const letter = String.fromCharCode(i);
         const button = document.createElement('button');
@@ -82,6 +83,7 @@ function generateLetterButtons() {
         button.setAttribute('data-letter', letter);
         button.addEventListener('click', () => {
             handleLetterClick(letter); // Replace with your own handler
+            
         });
         lettersContainer.appendChild(button);
     }
@@ -91,6 +93,15 @@ function handleLetterClick(letter) {
     const lowerLetter = letter.toLowerCase();
     const button = document.querySelector(`[data-letter="${letter}"]`);
 
+    // Play the sound
+    letterBtnSound.currentTime = 0; // Reset to the beginning
+    letterBtnSound.play();
+
+    // Stop the sound after a short period (e.g., 200 milliseconds)
+    setTimeout(() => {
+        letterBtnSound.pause();
+    }, 400);  // Adjust 200 to the length you want (in milliseconds)
+
     if (guessedLetters.includes(lowerLetter)) return;
     guessedLetters.push(lowerLetter);
 
@@ -98,7 +109,6 @@ function handleLetterClick(letter) {
         console.log(`Correct guess: ${letter}`);
         button.style.backgroundColor = 'green';
         button.style.color = 'white';
-
         const wordDisplay = document.getElementById('chosen-word');
         const spans = wordDisplay.querySelectorAll('span');
 
@@ -123,7 +133,7 @@ function handleLetterClick(letter) {
 function handleWrongGuess() {
     livesLeft--;
     updateBodyParts();
-    renderLives?.();
+    renderLives();
 
     if (livesLeft <= 0) {
         endGame(false); // You'll define this function
@@ -238,6 +248,7 @@ function resetGame() {
 
 const playAgainButton = document.getElementById('playAgain');
 playAgainButton.addEventListener('click', function() {
+    sound.play();
     resetGame();  // This will reset and show the word-selection window
 });
 
