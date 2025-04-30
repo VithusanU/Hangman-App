@@ -83,7 +83,7 @@ function generateLetterButtons() {
         button.setAttribute('data-letter', letter);
         button.addEventListener('click', () => {
             handleLetterClick(letter); // Replace with your own handler
-            
+
         });
         lettersContainer.appendChild(button);
     }
@@ -247,14 +247,56 @@ function resetGame() {
 }
 
 const playAgainButton = document.getElementById('playAgain');
-playAgainButton.addEventListener('click', function() {
+playAgainButton.addEventListener('click', function () {
     sound.play();
     resetGame();  // This will reset and show the word-selection window
 });
+
+
+
+const categories = ['animals', 'food', 'sports', 'games', 'companies'];
+
+async function fetchWordByCategory(category) {
+  const url = `https://wordsapiv1.p.rapidapi.com/words/?random=true&topics=${category}`;
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '7700b1b3bcmsh51f46aef18cf6d9p1d34d0jsn7a42964924fc',
+      'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log('Random Word:', data.word);
+    console.log('Random Definition:', data.results?.[0]?.definition);
+    return {
+      word: data.word || null,
+      definition: data.results?.[0]?.definition || 'No definition available.'
+    };
+  } catch (error) {
+    console.error('Failed to get word:', error);
+    return null;
+  }
+}
+
+fetchWordByCategory('animals');
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Auto-run only if browser
 if (typeof window !== 'undefined') {
     generateLetterButtons();
 }
- 
