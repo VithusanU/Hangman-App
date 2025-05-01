@@ -252,37 +252,448 @@ playAgainButton.addEventListener('click', function () {
     resetGame();  // This will reset and show the word-selection window
 });
 
+// Categories logic
 
+const wordBanks = {
+    animals: [
+        "Lion",
+        "Tiger",
+        "Elephant",
+        "Giraffe",
+        "Zebra",
+        "Kangaroo",
+        "Panda",
+        "Koala",
+        "Sloth",
+        "Cheetah",
+        "Leopard",
+        "Wolf",
+        "Fox",
+        "Bear",
+        "Rabbit",
+        "Squirrel",
+        "Horse",
+        "Donkey",
+        "Cow",
+        "Sheep",
+        "Goat",
+        "Pig",
+        "Chicken",
+        "Duck",
+        "Turkey",
+        "Peacock",
+        "Ostrich",
+        "Penguin",
+        "Eagle",
+        "Owl",
+        "Parrot",
+        "Dolphin",
+        "Whale",
+        "Shark",
+        "Octopus",
+        "Sea Turtle",
+        "Clownfish",
+        "Jellyfish",
+        "Crocodile",
+        "Alligator",
+        "Lizard",
+        "Snake",
+        "Frog",
+        "Tortoise",
+        "Bat",
+        "Horsefly",
+        "Bee",
+        "Ant",
+        "Dragonfly",
+        "Ladybug",
+        "Caterpillar",
+        "Spider"
+    ],
+    foods: [
+        "Apple",
+        "Banana",
+        "Orange",
+        "Strawberry",
+        "Blueberry",
+        "Mango",
+        "Pineapple",
+        "Watermelon",
+        "Grapes",
+        "Avocado",
+        "Tomato",
+        "Carrot",
+        "Potato",
+        "Broccoli",
+        "Spinach",
+        "Cucumber",
+        "Lettuce",
+        "Corn",
+        "Peas",
+        "Onion",
+        "Garlic",
+        "Chicken",
+        "Beef",
+        "Pork",
+        "Fish",
+        "Shrimp",
+        "Eggs",
+        "Tofu",
+        "Rice",
+        "Pasta",
+        "Bread",
+        "Cheese",
+        "Yogurt",
+        "Milk",
+        "Butter",
+        "Pizza",
+        "Burger",
+        "Hot Dog",
+        "Fries",
+        "Tacos",
+        "Sandwich",
+        "Soup",
+        "Salad",
+        "Ice Cream",
+        "Chocolate",
+        "Cookies",
+        "Cake",
+        "Chips",
+        "Popcorn",
+        "Noodles"
+    ],
+    sports: [
+        "Soccer",
+        "Basketball",
+        "Baseball",
+        "Football",
+        "Tennis",
+        "Golf",
+        "Cricket",
+        "Rugby",
+        "Hockey",
+        "Volleyball",
+        "Table Tennis",
+        "Badminton",
+        "Swimming",
+        "Cycling",
+        "Track and Field",
+        "Boxing",
+        "MMA",
+        "Wrestling",
+        "Gymnastics",
+        "Skateboarding",
+        "Surfing",
+        "Skiing",
+        "Snowboarding",
+        "Lacrosse",
+        "Field Hockey",
+        "Formula 1",
+        "Motorsport",
+        "Archery",
+        "Fencing",
+        "Rowing",
+        "Canoeing",
+        "Kayaking",
+        "Horse Racing",
+        "Equestrian",
+        "Weightlifting",
+        "Powerlifting",
+        "Climbing",
+        "Polo",
+        "Ultimate Frisbee",
+        "Bowling",
+        "Snooker",
+        "Pool",
+        "Poker",
+        "Esports"
+    ],
+    games: [
+        // Video Games
+        "Fortnite",
+        "Minecraft",
+        "Call of Duty",
+        "Grand Theft Auto",
+        "The Legend of Zelda",
+        "Super Mario Bros.",
+        "League of Legends",
+        "Counter-Strike",
+        "Valorant",
+        "Elden Ring",
 
-const categories = ['animals', 'food', 'sports', 'games', 'companies'];
+        // Board Games
+        "Monopoly",
+        "Chess",
+        "Scrabble",
+        "Risk",
+        "Settlers of Catan",
+        "Clue",
+        "Checkers",
+        "Battleship",
+        "Carrom",
+        "Ticket to Ride",
 
-async function fetchWordByCategory(category) {
-  const url = `https://wordsapiv1.p.rapidapi.com/words/?random=true&topics=${category}`;
+        // Card Games
+        "Poker",
+        "Blackjack",
+        "Uno",
+        "Go Fish",
+        "Solitaire",
+        "Bridge",
+        "Hearts",
+        "Rummy",
+        "Crazy Eights",
+        "Magic: The Gathering",
 
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '7700b1b3bcmsh51f46aef18cf6d9p1d34d0jsn7a42964924fc',
-      'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
-    }
+        // Party Games
+        "Charades",
+        "Pictionary",
+        "Heads Up!",
+        "Truth or Dare",
+        "Mafia",
+        "Twister",
+        "Cards Against Humanity",
+        "Taboo",
+
+        // Classic Mini-Games
+        "Tetris",
+        "Pac-Man",
+        "Snake",
+        "Flappy Bird",
+        "Space Invaders",
+        "Doodle Jump",
+
+        // Outdoor/Playground Games
+        "Tag",
+        "Hide and Seek",
+        "Hopscotch",
+        "Capture the Flag",
+        "Kickball",
+        "Dodgeball",
+        "Red Rover"
+    ],
+    companies: [
+        "Google",
+        "Apple",
+        "Microsoft",
+        "Amazon",
+        "Meta",
+        "Tesla",
+        "Netflix",
+        "Nvidia",
+        "IBM",
+        "Adobe",
+        "Salesforce",
+        "Intel",
+        "Oracle",
+        "Spotify",
+        "Airbnb",
+        "Uber",
+        "Shopify",
+        "Snap Inc.",
+        "Zoom",
+        "Dropbox",
+        "Reddit",
+        "Twitter",
+        "Square",
+        "Stripe",
+        "Coinbase",
+        "Palantir",
+        "Slack",
+        "Asana",
+        "GitHub",
+        "Atlassian",
+        "Pinterest",
+        "TikTok",
+        "DoorDash",
+        "Instacart",
+        "Twitch",
+        "Robinhood",
+        "WeWork",
+        "LinkedIn",
+        "Bitbucket",
+        "Hulu",
+        "DigitalOcean",
+        "Cloudflare",
+        "Databricks",
+        "OpenAI",
+        "Anthropic",
+        "DeepMind",
+        "Grammarly",
+        "Canva",
+        "Figma",
+        "Replit"
+    ]
+};
+
+const companyHints = {
+    "Google": "Search engine giant and Android creator.",
+    "Apple": "iPhone and MacBook maker.",
+    "Microsoft": "Windows OS and Office Suite company.",
+    "Amazon": "E-commerce and cloud computing leader.",
+    "Meta": "Owns Facebook, Instagram, and WhatsApp.",
+    "Tesla": "Electric vehicles and SpaceX sibling company.",
+    "Netflix": "Streaming platform known for originals.",
+    "Nvidia": "Graphics cards and AI hardware leader.",
+    "IBM": "Oldest tech firm, known for enterprise services.",
+    "Adobe": "Creative software like Photoshop and Illustrator.",
+    "Salesforce": "CRM and cloud business software provider.",
+    "Intel": "Chipmaker famous for powering PCs.",
+    "Oracle": "Enterprise databases and cloud services.",
+    "Spotify": "Music streaming app with playlists and podcasts.",
+    "Airbnb": "Short-term home and apartment rentals.",
+    "Uber": "Ridesharing and food delivery company.",
+    "Shopify": "E-commerce platform for online stores.",
+    "Snap Inc.": "Company behind Snapchat.",
+    "Zoom": "Popular video conferencing tool.",
+    "Dropbox": "Cloud file storage and sharing.",
+    "Reddit": "Forum-style website with subreddits.",
+    "Twitter": "Short-form social media platform, now called X.",
+    "Square": "Payment processing company from Block Inc.",
+    "Stripe": "Online payment and checkout APIs.",
+    "Coinbase": "Cryptocurrency exchange for BTC, ETH, etc.",
+    "Palantir": "Data analytics firm used by governments.",
+    "Slack": "Work messaging and collaboration app.",
+    "Asana": "Task and project management software.",
+    "GitHub": "Code hosting platform using Git.",
+    "Atlassian": "Makes Jira, Confluence, and Bitbucket.",
+    "Pinterest": "Visual discovery and pinboard platform.",
+    "TikTok": "Short-form video app from China.",
+    "DoorDash": "Food delivery from restaurants.",
+    "Instacart": "Grocery delivery app.",
+    "Twitch": "Live-streaming platform, popular for gaming.",
+    "Robinhood": "Commission-free stock trading app.",
+    "WeWork": "Shared coworking space provider.",
+    "LinkedIn": "Professional networking platform.",
+    "Bitbucket": "Git-based code hosting like GitHub.",
+    "Hulu": "Streaming platform for TV shows and movies.",
+    "DigitalOcean": "Cloud hosting for developers.",
+    "Cloudflare": "Web performance and DDoS protection.",
+    "Databricks": "AI and big data platform built on Apache Spark.",
+    "OpenAI": "Creator of ChatGPT and other AI tools.",
+    "Anthropic": "AI safety research company (Claude AI).",
+    "DeepMind": "Google's AI research lab (AlphaGo, AlphaFold).",
+    "Grammarly": "AI writing assistant for grammar and tone.",
+    "Canva": "Design tool for non-designers.",
+    "Figma": "Collaborative UI/UX design software.",
+    "Replit": "Browser-based code editor and dev platform."
+};
+
+const gameHints = {
+    // Video Games
+    "Fortnite": "Battle royale with building mechanics.",
+    "Minecraft": "Blocky sandbox game of survival and creativity.",
+    "Call of Duty": "Military first-person shooter franchise.",
+    "Grand Theft Auto": "Open-world crime and driving adventure.",
+    "The Legend of Zelda": "Adventure game with Link and puzzles.",
+    "Super Mario Bros.": "Classic platformer featuring a plumber.",
+    "League of Legends": "Team-based MOBA with champions and lanes.",
+    "Counter-Strike": "Terrorists vs. Counter-Terrorists shooter.",
+    "Valorant": "Tactical FPS with character abilities.",
+    "Elden Ring": "Open-world fantasy RPG by FromSoftware.",
+  
+    // Board Games
+    "Monopoly": "Buy properties and bankrupt opponents.",
+    "Chess": "Strategic game with kings and pawns.",
+    "Scrabble": "Build words with letter tiles.",
+    "Risk": "Conquer the world through dice and armies.",
+    "Settlers of Catan": "Trade and build settlements for victory.",
+    "Clue": "Solve the mystery of who did it.",
+    "Checkers": "Jump and capture your opponent’s pieces.",
+    "Battleship": "Guess grid coordinates to sink ships.",
+    "Carrom": "Flick coins into pockets on a square board.",
+    "Ticket to Ride": "Collect train cards and connect cities.",
+  
+    // Card Games
+    "Poker": "Bet and bluff with ranked card hands.",
+    "Blackjack": "Get 21 without going over.",
+    "Uno": "Match cards by color or number.",
+    "Go Fish": "Ask for cards and make pairs.",
+    "Solitaire": "Classic single-player card-stacking game.",
+    "Bridge": "Complex trick-taking partnership game.",
+    "Hearts": "Avoid getting heart cards or the queen of spades.",
+    "Rummy": "Form sets and runs to win.",
+    "Crazy Eights": "Play matching eights and skip turns.",
+    "Magic: The Gathering": "Strategic fantasy card duels.",
+  
+    // Party Games
+    "Charades": "Act out words without speaking.",
+    "Pictionary": "Draw clues for your team to guess.",
+    "Heads Up!": "Hold a card on your head and guess.",
+    "Truth or Dare": "Answer a question or do a task.",
+    "Mafia": "Deduce who the killers are.",
+    "Twister": "Place body parts on colored circles.",
+    "Cards Against Humanity": "Fill-in-the-blank card game for adults.",
+    "Taboo": "Describe a word without using certain clues.",
+  
+    // Classic Mini-Games
+    "Tetris": "Fit falling blocks to make lines.",
+    "Pac-Man": "Eat pellets and dodge ghosts.",
+    "Snake": "Grow your snake without hitting walls.",
+    "Flappy Bird": "Tap to fly and dodge pipes.",
+    "Space Invaders": "Shoot aliens before they land.",
+    "Doodle Jump": "Bounce upwards avoiding gaps and enemies.",
+  
+    // Outdoor/Playground Games
+    "Tag": "Run and touch someone to make them 'it'.",
+    "Hide and Seek": "Hide while one player searches.",
+    "Hopscotch": "Jump through numbered squares.",
+    "Capture the Flag": "Steal the enemy’s flag and return it.",
+    "Kickball": "Kick a ball and run bases.",
+    "Dodgeball": "Throw balls to eliminate players.",
+    "Red Rover": "Break through linked arms in a line."
   };
 
-  try {
-    const response = await fetch(url, options);
-    const data = await response.json();
-    console.log('Random Word:', data.word);
-    console.log('Random Definition:', data.results?.[0]?.definition);
-    return {
-      word: data.word || null,
-      definition: data.results?.[0]?.definition || 'No definition available.'
-    };
-  } catch (error) {
-    console.error('Failed to get word:', error);
-    return null;
-  }
+
+async function getWordAndDefinitionFromCategory(category) {
+    const wordList = wordBanks[category];
+    const randomIndex = Math.floor(Math.random() * wordList.length);
+    const word = wordList[randomIndex];
+
+    let definition;
+    if (category === 'companies') {
+        definition = companyHints[word] || 'No hint available for this company!'
+    } else if (category === 'games'){
+        definition = gameHints[word] || 'No hint available for this game!'
+    } 
+    else {
+        definition = await fetchDefinition(word);
+    }
+
+
+    return { word, definition };
 }
 
-fetchWordByCategory('animals');
+async function fetchDefinition(word) {
+    const url = `https://wordsapiv1.p.rapidapi.com/words/${word}`;
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '7700b1b3bcmsh51f46aef18cf6d9p1d34d0jsn7a42964924fc',
+            'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data.results?.[0]?.definition || 'No hint available.';
+    } catch (error) {
+        console.error('Error fetching definition:', error);
+        return 'No hint available.';
+    }
+}
+
+
+async function startCategoryGame(category) {
+    const { word, definition } = await getWordAndDefinitionFromCategory(category);
+
+    console.log("🎯 Chosen Word:", word);
+    console.log("💡 Hint (Definition):", definition);
+
+}
+
+startCategoryGame('sports');
 
 
 
