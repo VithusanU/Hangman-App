@@ -20,53 +20,70 @@ cd hangman-game
  Then open index.html in your browser.
 
 ## 🧾 How to Play
-1) Start Game: A word is randomly selected from a category.
+**1) Start Game:** A word is randomly selected from a category.
 
-2) Guess Letters: Click on letters to guess the hidden word.
+**2) Guess Letters:** Click on letters to guess the hidden word.
 
-3) Correct Guess: The letter is revealed in the word.
+**3) Correct Guess:** The letter is revealed in the word.
 
-4) Incorrect Guess: A life is lost; max 7 lives.
+**4) Incorrect Guess:** A life is lost; max 7 lives.
 
-5) Win: Guess the full word before losing all lives.
+**5) Win:** Guess the full word before losing all lives.
 
-6) Lose: Game ends if all lives are lost.
+**6) Lose:** Game ends if all lives are lost.
 
-7) Play Again: Click the "Play Again" button to start a new game.
+**7) Play Again:** Click the "Play Again" button to start a new game.
 
 ## 📁 Project Structure
-bash
-Copy
-Edit
+```git
 /hangman-game
-│
-├── index.html        # Main HTML structure
-├── styles.css        # Styling and visual layout
-├── game-logic.js     # Core game functionality
+├── .vscode
 ├── /audio
-│   └── sound.mp3     # (Optional) Sound effects for interactions
+│   └── Lil Tecca.mp3
+│   └── old-radio-button=click.mp3
+│   └── pop.mp3
+│   └── curtain.mp3
+├── /css
+│   └── reset.css
+│   └── style.css # Styling and visual layout
+├── /image
+│   └── empty-heart.img
+│   └── Main-scene.gif
+│   └── starry.svg
+├── /js
+│   └── loading-screen.js
+│   └── main-game.js
+│   └── game-logic.js  # Core game functionality
+├── node_modules
+├──/ test
+│   └── test.js
+├── index.html        # Main HTML structure
+├── LICENSE
+├── package-lock.json
+├── package.json
 └── README.md         # Game overview and documentation
+```
 ### ⚙️ Game Logic Overview
-The game starts by choosing a random word from a predefined list.
+- The game starts by choosing a **random word** from a predefined list.
 
-The word is hidden using underscores (_ _ _), updated as correct letters are guessed.
+- The word is hidden using underscores (_ _ _), updated as correct letters are guessed.
 
-Lives counter tracks incorrect guesses.
+- **Lives counter **tracks incorrect guesses.
 
-After 7 incorrect guesses, the game ends with a loss message.
+- After 7 incorrect guesses, the game ends with a loss message.
 
-The player can click "Play Again" to restart the game.
+- The player can click **"Play Again"** to restart the game.
 
 ## 🛠️ Planned Improvements
-🌐 Use a word API to fetch more dynamic and diverse word sets.
+- 🌐 Use a **word API **to fetch more dynamic and diverse word sets.
 
-🎨 Improve UI/UX with smoother animations and transitions.
+- 🎨 Improve UI/UX with smoother animations and transitions.
 
-🧮 Add score tracking and round-based play.
+- 🧮 Add **score tracking** and round-based play.
 
-🛡️ Allow game mode customization: number of lives, category filters, etc.
+- 🛡️ Allow game mode customization: number of lives, category filters, etc.
 
-📱 Make mobile-responsive design adjustments.
+- 📱 Make mobile-responsive design adjustments.
 
 ## 📝 License
 This project is licensed under the MIT License.
