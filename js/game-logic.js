@@ -1,5 +1,6 @@
 globalThis.currentWord = '';
 globalThis.guessedLetters = [];
+globalThis.currentHint = '';
 let wordsToGuess = []; //The list of words
 let currentWordIndex = 0;
 let wordRounds = 0;
@@ -27,30 +28,43 @@ async function getRandomWord() {
 }
 
 
+
+
 // Initialize the game board with underscores
-function initializeGameWithWord(word) {
+async function initializeGameWithWord(word) {
     currentWord = word;
     guessedLetters = [];
 
-    if (typeof document !== 'undefined') {
-        const wordDisplay = document.getElementById('chosen-word');
-        if (wordDisplay) {
-            wordDisplay.innerHTML = '';
+    // Get the hint first
+    const currentHint = await fetchDefinition(currentWord);
 
-            for (let letter of currentWord) {
-                const letterSpan = document.createElement('span');
-                letterSpan.textContent = '';
-                letterSpan.classList.add('letter');
-                wordDisplay.appendChild(letterSpan);
-            }
+    // Display the hint
+    const hintDisplay = document.getElementById('hint');
+    if (hintDisplay) {
+        hintDisplay.textContent = `Hint: ${currentHint}`;
+    }
+
+    // Display the word placeholders
+    const wordDisplay = document.getElementById('chosen-word');
+    if (wordDisplay) {
+        wordDisplay.innerHTML = '';
+
+        for (let letter of currentWord) {
+            const letterSpan = document.createElement('span');
+            letterSpan.textContent = '';
+            letterSpan.classList.add('letter');
+            wordDisplay.appendChild(letterSpan);
         }
     }
 
+
     console.log("Game Initialized with word:", word);
+    console.log('This is the Hint:', currentHint);
 
     // Sync globals (so tests can see updates)
     globalThis.currentWord = currentWord;
     globalThis.guessedLetters = guessedLetters;
+    globalThis.currentHint = currentHint;
 }
 
 
@@ -695,7 +709,12 @@ async function startCategoryGame(category) {
 
 startCategoryGame('sports');
 
+// Hint Logic for category
 
+async function showHint(word) {
+    const data = await fetchDefinition(word);
+
+}
 
 
 
