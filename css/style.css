@@ -463,3 +463,16 @@ body {
 #gameEnd.show {
     opacity: 1;
 }
+
+#hint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+#hint::after {
+    content: '|';
+    animation: blink 0.8s steps(1) infinite;
+}

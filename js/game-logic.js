@@ -35,16 +35,13 @@ async function initializeGameWithWord(word) {
     currentWord = word;
     guessedLetters = [];
 
-    // Get the hint first
     const currentHint = await fetchDefinition(currentWord);
 
-    // Display the hint
     const hintDisplay = document.getElementById('hint');
     if (hintDisplay) {
-        hintDisplay.textContent = `Hint: ${currentHint}`;
+        await typeHintText(hintDisplay, `Hint: ${currentHint}`, 40); // 40ms per char
     }
 
-    // Display the word placeholders
     const wordDisplay = document.getElementById('chosen-word');
     if (wordDisplay) {
         wordDisplay.innerHTML = '';
@@ -73,12 +70,13 @@ async function initializeGameWithWord(word) {
 async function startHangoverGame() {
     if (wordRounds <= 0) {
         alert('Game Over! You have completed all rounds.');
+        wordRounds = 5; // Reset the rounds if you want to allow another playthrough
         return;
     }
 
-    generateLetterButtons(); // recreate all buttons fresh every new round
     const word = await getRandomWord();
     initializeGameWithWord(word);
+    generateLetterButtons(); // recreate all buttons fresh every new round
     // Reduce remaining rounds
     wordRounds--;
 }
@@ -175,7 +173,19 @@ function showGameEnd(win) {
     gameEndScreen.style.display = 'flex';
     setTimeout(() => {
         gameEndScreen.classList.add('show');
-    }, 10); // Tiny delay so CSS transition triggers
+    }, 10); // To trigger the CSS transition
+
+    // Ensure the "Play Again" button is visible when game ends
+    const playAgainButton = document.getElementById('playAgain');
+    playAgainButton.style.display = 'block';  // Make sure it's visible when game ends
+
+    // Add an event listener to the "Play Again" button to reset the game
+    playAgainButton.addEventListener('click', () => {
+        sound.play();  // Play sound if needed
+
+        // Always reset the game when the button is clicked
+        resetGame();
+    });
 }
 
 function checkWinCondition() {
@@ -209,62 +219,44 @@ function updateBodyParts() {
 }
 
 function resetGame() {
-    // Hide the game over screen
-    const gameEndScreen = document.getElementById('gameEnd-screen');
-    gameEndScreen.style.display = 'none';
-
-    // Reset global variables (guessed letters, current word, lives, etc.)
+    // Reset global variables (example)
     guessedLetters = [];
     currentWord = '';
     livesLeft = totalLives;
 
-    // Reset word display if in word mode
-    if (currentMode === 'word') {
-        const wordDisplay = document.getElementById('chosen-word');
-        if (wordDisplay) {
-            wordDisplay.innerHTML = ''; // Clear the word
-        }
-    }
+    // Clear the word display (example)
+    const wordDisplay = document.getElementById('chosen-word');
+    wordDisplay.innerHTML = ''; // Clear the word on the board
 
-    // Reset the hangman drawing if needed
-    if (typeof resetBodyParts === 'function') {
-        resetBodyParts();
-    }
+    // Enable all letter buttons again
+    const allButtons = document.querySelectorAll('.letter-button');
+    allButtons.forEach(button => {
+        button.disabled = false; // Enable buttons
+        button.style.backgroundColor = ''; // Reset background color
+        button.style.color = ''; // Reset text color
+    });
 
-    // Hide the active game screen
-    const gameScreen = document.getElementById('game');
-    gameScreen.style.display = 'none';
+    // Hide the game over screen if it's showing
+    const gameEndScreen = document.getElementById('gameEnd');
+    gameEndScreen.style.display = 'none';
 
-    // Hide any other settings windows (e.g., slogan selection window)
-    const sloganSelectionWindow = document.getElementById('slogan-selection-window');
-    if (sloganSelectionWindow) {
-        sloganSelectionWindow.style.display = 'none';
-    }
-
-    // Show the game screen with word selection window
-    const gameScreenContainer = document.getElementById('game-screen');
-    gameScreenContainer.style.display = 'flex';
-
-    const wordSelectionWindow = document.getElementById('word-selection-window');
-    if (wordSelectionWindow) {
-        wordSelectionWindow.style.display = 'flex';  // Show the word selection window
-    }
-
-    // Hide the word and slogan modes (if needed)
-    const sloganWindow = document.getElementById('slogan-selection-window');
-    if (sloganWindow) {
-        sloganWindow.style.display = 'none';
-    }
-
-    // Reset letter buttons if necessary
-    generateLetterButtons();
+    // Restart the game with a new word
+    startHangoverGame(); // Assuming this starts the game again with a new word
 }
 
 const playAgainButton = document.getElementById('playAgain');
-playAgainButton.addEventListener('click', function () {
+playAgainButton.addEventListener('click', () => {
     sound.play();
-    resetGame();  // This will reset and show the word-selection window
+    // Reset lives and visuals
+    livesLeft = totalLives;
+    bodyParts.forEach(part => part.style.display = 'none');
+    renderLives();
+
+    // Restart the game
+    resetGame();
+
 });
+
 
 // Categories logic
 
@@ -705,6 +697,14 @@ async function startCategoryGame(category) {
     console.log("🎯 Chosen Word:", word);
     console.log("💡 Hint (Definition):", definition);
 
+}
+
+async function typeHintText(element, text, delay = 50) {
+    element.textContent = ''; // Clear existing content
+    for (let i = 0; i < text.length; i++) {
+        element.textContent += text[i];
+        await new Promise(resolve => setTimeout(resolve, delay));
+    }
 }
 
 startCategoryGame('sports');
