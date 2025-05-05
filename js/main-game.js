@@ -138,3 +138,4 @@ function renderLives() {
         container.appendChild(heart);
     }
 }
+
