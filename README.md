@@ -1,37 +1,91 @@
-# 🕹️ Hangman Game MVP
+# 🎮 Hangman Game
+An interactive Hangman game built with HTML, CSS, and JavaScript. This game lets players guess a hidden word one letter at a time, with hints and lives limiting the number of wrong guesses allowed.
 
-## 📋 Project Overview
+## 📌 Features
+- 🔤 **Letter Guessing** – Players guess the word one letter at a time.  
+- 🧠 **Category-based Hints** – Hints are based on categories: Animals, Foods, Sports, Games, and Companies.  
+- 💔 **Limited Lives** – 7 chances before the game ends.  
+- 🖼️ **Dynamic Display** – Correct letters are revealed; incorrect guesses are tracked visually.  
+- 🕹️ **Game Over / Play Again** – UI updates based on win or loss with a restart button. 
 
-This is a JavaScript-based Hangman game built as a minimum viable product (MVP). The game features two modes:
-1. **Word Mode** – The player guesses a single word.
-2. **Sentence Mode** – The player guesses a short phrase or slogan, including spaces and punctuation.
+## 🚀 Getting Started
+✅ Prerequisites
+A modern web browser (Chrome, Firefox, Edge, Safari, etc.)
 
-The game tracks guesses, handles correct/incorrect inputs, and ends when the player either guesses all letters or runs out of guesses.
+## 📂 Installation
+```git
+git clone https://github.com/your-username/hangman-game.git
+cd hangman-game
+```
+ Then open index.html in your browser.
 
----
+## 🧾 How to Play
+**1) Start Game:** A word is randomly selected from a category.
 
-## 🚀 Features
+**2) Guess Letters:** Click on letters to guess the hidden word.
 
-- 🔤 Letter-by-letter guessing
-- 🧠 Word or sentence selection from predefined banks
-- ⏱ Limited number of guesses (default: 6)
-- 👀 Real-time word display with blanks for unguessed letters
-- ❌ Repeated and invalid guesses are ignored
-- ✅ Win/loss detection
-- 🧪 Fully tested using Mocha & Chai
+**3) Correct Guess:** The letter is revealed in the word.
 
----
+**4) Incorrect Guess:** A life is lost; max 7 lives.
 
-## 🧱 MVP Functionality
+**5) Win:** Guess the full word before losing all lives.
 
-- `setGameWord(mode)` – sets a random word or sentence based on selected mode
-- `guessLetter(letter)` – registers a guess and updates game state
-- `getDisplayedWord()` – returns the current word with blanks and guessed letters
-- `checkWin()` – returns true if all letters are guessed
-- `checkLoss()` – returns true if remaining guesses are 0
-- `resetGame()` – resets all game state to default
+**6) Lose:** Game ends if all lives are lost.
 
----
+**7) Play Again:** Click the "Play Again" button to start a new game.
 
-## 📂 File Structure
+## 📁 Project Structure
+```git
+/hangman-game
+├── .vscode
+├── /audio
+│   └── Lil Tecca.mp3
+│   └── old-radio-button=click.mp3
+│   └── pop.mp3
+│   └── curtain.mp3
+├── /css
+│   └── reset.css
+│   └── style.css # Styling and visual layout
+├── /image
+│   └── empty-heart.img
+│   └── Main-scene.gif
+│   └── starry.svg
+├── /js
+│   └── loading-screen.js
+│   └── main-game.js
+│   └── game-logic.js  # Core game functionality
+├── node_modules
+├──/ test
+│   └── test.js
+├── index.html        # Main HTML structure
+├── LICENSE
+├── package-lock.json
+├── package.json
+└── README.md         # Game overview and documentation
+```
+### ⚙️ Game Logic Overview
+- The game starts by choosing a **random word** from a predefined list.
+
+- The word is hidden using underscores (_ _ _), updated as correct letters are guessed.
+
+- **Lives counter **tracks incorrect guesses.
+
+- After 7 incorrect guesses, the game ends with a loss message.
+
+- The player can click **"Play Again"** to restart the game.
+
+## 🛠️ Planned Improvements
+- 🌐 Use a **word API **to fetch more dynamic and diverse word sets.
+
+- 🎨 Improve UI/UX with smoother animations and transitions.
+
+- 🧮 Add **score tracking** and round-based play.
+
+- 🛡️ Allow game mode customization: number of lives, category filters, etc.
+
+- 📱 Make mobile-responsive design adjustments.
+
+## 📝 License
+This project is licensed under the MIT License.
+See the LICENSE file for details.
 
