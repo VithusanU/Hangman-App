@@ -1031,7 +1031,7 @@ async function getWordAndDefinitionFromCategory(category) {
     } else if (category === 'movies') {
         definition = movieHints[word] || 'No hint available for this movie!'
     } else if (category === 'countries') {
-        definition = countryHints || 'No hint available for this country!'
+        definition = countryHints[word] || 'No hint available for this country!'
     } else {
         definition = await fetchDefinition(word);
     }
@@ -1059,6 +1059,12 @@ async function fetchDefinition(word) {
         console.error('Error fetching definition:', error);
         return 'No hint available.';
     }
+}
+
+let currentCategory = '';
+function selectCategory(category) {
+    currentCategory = category;
+    startCategoryGame(currentCategory);
 }
 
 
