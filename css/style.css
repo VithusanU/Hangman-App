@@ -213,7 +213,7 @@ body {
 }
 
 #slogan-selection-window,
-#word-selection-window {
+#word-selection-window, #category-selection-window {
     display: none;
     flex-direction: column;
     height: 100vh;
@@ -233,6 +233,48 @@ body {
 
 #game-screen select option {
     background-color: rgb(234, 234, 234);
+}
+
+#categories-title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: black;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+#categories {
+    width: 100%;
+    background-color: #e2e2e2;
+    border-radius: 10px;
+}
+
+#categories-window-selection {
+    background-color: whitesmoke;
+
+}
+
+.button-grid {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.category-button {
+    padding: 10px;
+    background-color: #ffffff;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.category-button:hover {
+    background-color: #c5f0f1;
 }
 
 /* =========================

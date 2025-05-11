@@ -91,6 +91,13 @@
                 <button id="play-word-button">Play</button>
             </div>
         </div>
+        <!-- Category Selection -->
+        <div id="category-selection-window">
+            <h1 id="categories-title"> Categories</h1>
+            <div id="categories" class="button-grid">
+<!-- This is where the categories buttons should generate -->
+            </div>
+        </div>
 
         <!-- Slogan Mode Settings -->
         <div id="slogan-selection-window">
@@ -128,7 +135,7 @@
     <!-- Active Game UI -->
     <div id="game">
         <div id="lives-container"></div>
-    
+
         <div id="hangman-wrapper">
             <div id="hangman-container">
                 <svg width="200" height="250" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
@@ -137,7 +144,7 @@
                     <line x1="50" y1="230" x2="50" y2="30" stroke="black" stroke-width="4" />
                     <line x1="50" y1="30" x2="150" y2="30" stroke="black" stroke-width="4" />
                     <line x1="150" y1="30" x2="150" y2="60" stroke="black" stroke-width="4" />
-            
+
                     <!-- Stick Figure -->
                     <circle id="headGame" cx="150" cy="75" r="15" stroke="black" stroke-width="4" fill="none" />
                     <line id="bodyGame" x1="150" y1="90" x2="150" y2="150" stroke="black" stroke-width="4" />
@@ -151,7 +158,7 @@
                 <!-- Letter buttons here -->
             </div>
         </div>
-    
+
         <div id="chosen-word">
             <!-- Hidden word display here -->
         </div>

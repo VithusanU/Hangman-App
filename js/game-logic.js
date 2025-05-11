@@ -27,9 +27,6 @@ async function getRandomWord() {
     }
 }
 
-
-
-
 // Initialize the game board with underscores
 async function initializeGameWithWord(word) {
     currentWord = word;
@@ -41,6 +38,8 @@ async function initializeGameWithWord(word) {
     if (hintDisplay) {
         await typeHintText(hintDisplay, `Hint: ${currentHint}`, 40); // 40ms per char
     }
+
+
 
     const wordDisplay = document.getElementById('chosen-word');
     if (wordDisplay) {
@@ -64,8 +63,6 @@ async function initializeGameWithWord(word) {
     globalThis.currentHint = currentHint;
 }
 
-
-
 // Start game using fetched word
 async function startHangoverGame() {
     if (wordRounds <= 0) {
@@ -80,7 +77,6 @@ async function startHangoverGame() {
     // Reduce remaining rounds
     wordRounds--;
 }
-
 
 function generateLetterButtons() {
     const lettersContainer = document.getElementById('letters');
@@ -528,6 +524,188 @@ const wordBanks = {
         "Canva",
         "Figma",
         "Replit"
+    ],
+    movies: [
+        "The Godfather",
+        "The Shawshank Redemption",
+        "The Dark Knight",
+        "Titanic",
+        "Avatar",
+        "The Avengers",
+        "Star Wars: A New Hope",
+        "Jurassic Park",
+        "Forrest Gump",
+        "Pulp Fiction",
+        "The Lion King",
+        "Inception",
+        "Gladiator",
+        "The Matrix",
+        "Jaws",
+        "The Silence of the Lambs",
+        "Fight Club",
+        "Schindler's List",
+        "The Lord of the Rings: The Fellowship of the Ring",
+        "Back to the Future",
+        "The Terminator",
+        "The Godfather Part II",
+        "Interstellar",
+        "Frozen",
+        "Black Panther",
+        "The Dark Knight Rises",
+        "The Wizard of Oz",
+        "Spider-Man: No Way Home",
+        "The Hunger Games",
+        "The Social Network",
+        "E.T. the Extra-Terrestrial",
+        "Coco",
+        "Toy Story",
+        "Pirates of the Caribbean: The Curse of the Black Pearl",
+        "The Incredibles",
+        "The Prestige",
+        "La La Land",
+        "The Big Lebowski",
+        "The Godfather Part III",
+        "The Avengers: Endgame",
+        "Mad Max: Fury Road",
+        "Goodfellas",
+        "Saving Private Ryan",
+        "The Great Gatsby",
+        "The Revenant",
+        "12 Angry Men",
+        "A Clockwork Orange",
+        "Moonlight",
+        "Whiplash",
+        "Shutter Island",
+        "The Big Short",
+        "The Wolf of Wall Street",
+        "Blade Runner 2049",
+        "Jumanji: Welcome to the Jungle",
+        "Deadpool",
+        "The Matrix Reloaded",
+        "Guardians of the Galaxy",
+        "Wonder Woman",
+        "King Kong",
+        "Jurassic World",
+        "The King's Speech",
+        "Zootopia",
+        "The Truman Show",
+        "Her",
+        "The Secret Life of Walter Mitty",
+        "Django Unchained",
+        "Inglourious Basterds",
+        "Pulp Fiction",
+        "The Grand Budapest Hotel",
+        "The Hobbit: An Unexpected Journey",
+        "Iron Man",
+        "Shrek",
+        "The Wolf of Wall Street",
+        "The Conjuring",
+        "Blade Runner",
+        "Avengers: Age of Ultron",
+        "Deadpool 2",
+        "Logan",
+        "Star Wars: The Last Jedi",
+        "Jurassic Park: The Lost World",
+        "The Lord of the Rings: The Return of the King"
+    ],
+    countries : [
+        "Canada",
+        "Brazil",
+        "Germany",
+        "Japan",
+        "Australia",
+        "India",
+        "Nigeria",
+        "France",
+        "Mexico",
+        "Italy",
+        "United States",
+        "United Kingdom",
+        "South Korea",
+        "Russia",
+        "China",
+        "South Africa",
+        "Argentina",
+        "Spain",
+        "Egypt",
+        "Thailand",
+        "New Zealand",
+        "Sweden",
+        "Norway",
+        "Chile",
+        "Switzerland",
+        "Netherlands",
+        "Greece",
+        "Turkey",
+        "Saudi Arabia",
+        "Malaysia",
+        "Israel",
+        "Poland",
+        "Vietnam",
+        "Indonesia",
+        "Colombia",
+        "Ukraine",
+        "Peru",
+        "Portugal",
+        "Belgium",
+        "Finland",
+        "Denmark",
+        "Czech Republic",
+        "Hungary",
+        "Romania",
+        "Switzerland",
+        "Pakistan",
+        "Bangladesh",
+        "Philippines",
+        "Iraq",
+        "Afghanistan",
+        "Kenya",
+        "Uganda",
+        "Tanzania",
+        "Singapore",
+        "Qatar",
+        "Kuwait",
+        "Oman",
+        "Bahrain",
+        "Egypt",
+        "Belarus",
+        "Cuba",
+        "Bolivia",
+        "Paraguay",
+        "Costa Rica",
+        "Honduras",
+        "Panama",
+        "Guatemala",
+        "Ecuador",
+        "Suriname",
+        "Armenia",
+        "Azerbaijan",
+        "Georgia",
+        "Uzbekistan",
+        "Kazakhstan",
+        "Kyrgyzstan",
+        "Turkmenistan",
+        "Mongolia",
+        "Sri Lanka",
+        "Laos",
+        "Cambodia",
+        "Nepal",
+        "Mauritius",
+        "Seychelles",
+        "Maldives",
+        "Iceland",
+        "Malta",
+        "Cyprus",
+        "Estonia",
+        "Latvia",
+        "Lithuania",
+        "Slovenia",
+        "Bulgaria",
+        "Albania",
+        "Macedonia",
+        "Kosovo",
+        "Montenegro",
+        "Bosnia and Herzegovina"
     ]
 };
 
@@ -596,7 +774,7 @@ const gameHints = {
     "Counter-Strike": "Terrorists vs. Counter-Terrorists shooter.",
     "Valorant": "Tactical FPS with character abilities.",
     "Elden Ring": "Open-world fantasy RPG by FromSoftware.",
-  
+
     // Board Games
     "Monopoly": "Buy properties and bankrupt opponents.",
     "Chess": "Strategic game with kings and pawns.",
@@ -608,7 +786,7 @@ const gameHints = {
     "Battleship": "Guess grid coordinates to sink ships.",
     "Carrom": "Flick coins into pockets on a square board.",
     "Ticket to Ride": "Collect train cards and connect cities.",
-  
+
     // Card Games
     "Poker": "Bet and bluff with ranked card hands.",
     "Blackjack": "Get 21 without going over.",
@@ -620,7 +798,7 @@ const gameHints = {
     "Rummy": "Form sets and runs to win.",
     "Crazy Eights": "Play matching eights and skip turns.",
     "Magic: The Gathering": "Strategic fantasy card duels.",
-  
+
     // Party Games
     "Charades": "Act out words without speaking.",
     "Pictionary": "Draw clues for your team to guess.",
@@ -630,7 +808,7 @@ const gameHints = {
     "Twister": "Place body parts on colored circles.",
     "Cards Against Humanity": "Fill-in-the-blank card game for adults.",
     "Taboo": "Describe a word without using certain clues.",
-  
+
     // Classic Mini-Games
     "Tetris": "Fit falling blocks to make lines.",
     "Pac-Man": "Eat pellets and dodge ghosts.",
@@ -638,7 +816,7 @@ const gameHints = {
     "Flappy Bird": "Tap to fly and dodge pipes.",
     "Space Invaders": "Shoot aliens before they land.",
     "Doodle Jump": "Bounce upwards avoiding gaps and enemies.",
-  
+
     // Outdoor/Playground Games
     "Tag": "Run and touch someone to make them 'it'.",
     "Hide and Seek": "Hide while one player searches.",
@@ -647,8 +825,17 @@ const gameHints = {
     "Kickball": "Kick a ball and run bases.",
     "Dodgeball": "Throw balls to eliminate players.",
     "Red Rover": "Break through linked arms in a line."
-  };
+};
 
+const categoryEmojis = {
+    companies: "🏢",
+    games: "🎮",
+    animals: "🐾",
+    sports: "🏀",
+    foods: "🥡",
+    movies: "🎞️",
+    countries: "🌍"
+};
 
 async function getWordAndDefinitionFromCategory(category) {
     const wordList = wordBanks[category];
@@ -658,9 +845,9 @@ async function getWordAndDefinitionFromCategory(category) {
     let definition;
     if (category === 'companies') {
         definition = companyHints[word] || 'No hint available for this company!'
-    } else if (category === 'games'){
+    } else if (category === 'games') {
         definition = gameHints[word] || 'No hint available for this game!'
-    } 
+    }
     else {
         definition = await fetchDefinition(word);
     }
@@ -719,7 +906,28 @@ async function showHint(word) {
 
 
 
+const categories = Object.keys(wordBanks);
 
+function categoryDisplay() {
+    const categoriesWindow= document.getElementById('categories');
+    categoriesWindow.innerHTML = '';
+
+    categories.forEach(category => {
+        const button = document.createElement('button');
+        const emoji = categoryEmojis[category] || ""; // fallback in case no emoji is defined
+        button.textContent = `${emoji} ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+        button.classList.add('category-button');
+        button.setAttribute('data-category', category);
+        button.addEventListener('click', () => {
+            selectCategory(category);
+        });
+        categoriesWindow.appendChild(button);
+    });
+}
+
+
+
+categoryDisplay();
 
 
 

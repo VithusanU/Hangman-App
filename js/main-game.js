@@ -8,6 +8,7 @@ const sloganMode = document.getElementById('slogan-mode');
 const wordWindow = document.getElementById('word-selection-window');
 const sloganWindow = document.getElementById('slogan-selection-window');
 const gameArea = document.getElementById('game');
+const categoryWindow = document.getElementById('category-selection-window');
 
 const playWordButton = document.getElementById('play-word-button');
 const playSloganButton = document.getElementById('play-slogan-button');
@@ -62,10 +63,11 @@ wordMode.addEventListener('click', () => {
 sloganMode.addEventListener('click', () => {
     sound.play();
     currentMode = 'slogan';
+    categoryWindow.style.display = 'flex';
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
     wordWindow.style.display = 'none';
-    sloganWindow.style.display = 'flex';
+    sloganWindow.style.display = 'none';
     gameArea.style.display = 'none';
 });
 
