@@ -1122,7 +1122,18 @@ categoryDisplay();
 
 
 
-
+async function startHangoverCategoryGame() {
+    if (wordRounds <= 0) {
+        alert('Game Over! You have completed all rounds.');
+        wordRounds = 5; // Reset the rounds if you want to allow another playthrough
+        return;
+    }
+    startCategoryGame(category);
+    initializeGameWithWord(word);
+    generateLetterButtons(); // recreate all buttons fresh every new round
+    // Reduce remaining rounds
+    wordRounds--;
+}
 
 
 // Auto-run only if browser

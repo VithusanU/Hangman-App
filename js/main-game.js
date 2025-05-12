@@ -4,19 +4,19 @@ const modeButtons = document.querySelectorAll('.begin-button');
 const mainGame = document.getElementById('main-game');
 const gameScreen = document.getElementById('game-screen');
 const wordMode = document.getElementById('word-mode');
-const sloganMode = document.getElementById('slogan-mode');
+const categoryMode = document.getElementById('category-mode');
 const wordWindow = document.getElementById('word-selection-window');
-const sloganWindow = document.getElementById('slogan-selection-window');
+const categoryWindow2 = document.getElementById('category-selection-window2');
 const gameArea = document.getElementById('game');
 const categoryWindow = document.getElementById('category-selection-window');
 
 const playWordButton = document.getElementById('play-word-button');
-const playSloganButton = document.getElementById('play-slogan-button');
+const playCategoryButton = document.getElementById('play-category-button');
 
 const wordValue = document.getElementById('word');
-const sloganValue = document.getElementById('slogan');
+const categoryValue = document.getElementById('category');
 const livesValue = document.getElementById('lives');
-const sloganLives = document.getElementById('slogan-lives');
+const categoryLives = document.getElementById('category-lives');
 const head = document.getElementById('headGame');
 const body = document.getElementById('bodyGame');
 const leftArm = document.getElementById('leftArmGame');
@@ -24,6 +24,9 @@ const rightArm = document.getElementById('rightArmGame');
 const leftLeg = document.getElementById('leftLegGame');
 const rightLeg = document.getElementById('rightLegGame');
 const sound = document.getElementById('button-audio');
+
+
+const categorySelection = document.getElementById('categories');
 
 
 const bodyParts = [
@@ -56,18 +59,18 @@ wordMode.addEventListener('click', () => {
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
     wordWindow.style.display = 'flex';
-    sloganWindow.style.display = 'none';
+    categoryWindow2.style.display = 'none';
     gameArea.style.display = 'none';
 });
 
-sloganMode.addEventListener('click', () => {
+categoryMode.addEventListener('click', () => {
     sound.play();
-    currentMode = 'slogan';
+    currentMode = 'category';
     categoryWindow.style.display = 'flex';
     mainGame.style.display = 'none';
     gameScreen.style.display = 'flex';
     wordWindow.style.display = 'none';
-    sloganWindow.style.display = 'none';
+    categoryWindow2.style.display = 'none';
     gameArea.style.display = 'none';
 });
 
@@ -92,19 +95,34 @@ playWordButton.addEventListener('click', () => {
     initWordGame(wordCount, parseInt(lives));
 });
 
-playSloganButton.addEventListener('click', () => {
-    const sloganCount = sloganValue.value;
-    const lives = sloganLives.value;
+
+categorySelection.addEventListener('click', () => {
+    sound.play();
+    currentMode = 'category';
+    categoryWindow2.style.display = 'flex';
+    mainGame.style.display = 'none';
+    gameScreen.style.display = 'flex';
+    wordWindow.style.display = 'none';
+    categoryWindow.style.display = 'none';
+    gameArea.style.display = 'none';
+});
+
+
+
+
+playCategoryButton.addEventListener('click', () => {
+    const categoryCount = categoryValue.value;
+    const lives = categoryLives.value;
     
 
-    console.log(`Starting Slogan Mode with ${sloganCount} slogans and ${lives} lives`);
+    console.log(`Starting Slogan Mode with ${categoryCount} slogans and ${lives} lives`);
 
     gameScreen.style.display = 'none';
     gameArea.style.display = 'flex';
 
 
     // Initialize Slogan Mode Game
-    initSloganGame(sloganCount, parseInt(lives));
+    initCategoryGame(categoryCount, parseInt(lives));
 
 });
 
@@ -120,12 +138,16 @@ function initWordGame(wordCount, selectedLives) {
     startHangoverGame();  // Start the game with the selected number of rounds
 }
 
-function initSloganGame(sloganCount, selectedLives) {
+function initCategoryGame(categoryCount, selectedLives) {
     maxLives = selectedLives;
     livesLeft = maxLives;
-    wordRounds = parseInt(sloganCount);  // Set the number of rounds based on user selection
+    wordRounds = parseInt(categoryCount); 
+    const livesSelect = document.getElementById('lives');
+    totalLives = parseInt(livesSelect.value, 10);
+    bodyParts.forEach(part => part.style.display = 'none');
+    livesLeft = totalLives; // Set the number of rounds based on user selection
     renderLives();
-    startHangoverGame();  // Start the game with the selected number of rounds
+    startHangoverCategoryGame();  // Start the game with the selected number of rounds
 }
 
 function renderLives() {

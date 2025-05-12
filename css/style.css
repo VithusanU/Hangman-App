@@ -212,7 +212,7 @@ body {
     border-radius: 10px;
 }
 
-#slogan-selection-window,
+#category-selection-window2,
 #word-selection-window, #category-selection-window {
     display: none;
     flex-direction: column;
