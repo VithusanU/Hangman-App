@@ -3,7 +3,7 @@ globalThis.guessedLetters = [];
 globalThis.currentHint = '';
 let wordsToGuess = []; //The list of words
 let currentWordIndex = 0;
-let wordRounds = 0;
+let wordRounds = 5;
 let totalLives = 7; // default
 let livesLeft = totalLives;
 globalThis.currentMode = ''; // Default to an empty string
@@ -1023,6 +1023,13 @@ async function getWordAndDefinitionFromCategory(category) {
     const randomIndex = Math.floor(Math.random() * wordList.length);
     const word = wordList[randomIndex];
 
+    if (!wordList || !Array.isArray(wordList) || wordList.length === 0) {
+        console.error(`❌ Invalid or empty word bank for category: "${category}"`);
+        throw new Error(`No words found for category: "${category}"`);
+    }
+
+
+
     let definition;
     if (category === 'companies') {
         definition = companyHints[word] || 'No hint available for this company!'
@@ -1063,18 +1070,19 @@ async function fetchDefinition(word) {
 
 let currentCategory = '';
 function selectCategory(category) {
-    currentCategory = category;
-    startCategoryGame(currentCategory);
+    sound.play();  // Play sound when category is selected
+    currentMode = 'category';
+    categoryWindow2.style.display = 'flex';
+    categoryWindow.style.display = 'none';
+    mainGame.style.display = 'none';
+    gameScreen.style.display = 'flex';
+    gameArea.style.display = 'none';
+
+    // Set the selected category in a global variable or pass it to the game initialization function
+    currentCategory = category;  // Store the selected category
+    console.log(`Category selected: ${category}`);
 }
 
-
-async function startCategoryGame(category) {
-    const { word, definition } = await getWordAndDefinitionFromCategory(category);
-
-    console.log("🎯 Chosen Word:", word);
-    console.log("💡 Hint (Definition):", definition);
-
-}
 
 async function typeHintText(element, text, delay = 50) {
     element.textContent = ''; // Clear existing content
@@ -1085,7 +1093,7 @@ async function typeHintText(element, text, delay = 50) {
 }
 
 
-startCategoryGame('sports');
+
 
 // Hint Logic for category
 
@@ -1122,20 +1130,29 @@ categoryDisplay();
 
 
 
-async function startHangoverCategoryGame() {
+async function startHangoverCategoryGame(category) {
+    console.log("📛 Category Received:", category);
+
+
+    const { word, definition } = await getWordAndDefinitionFromCategory(category);
+
+    
     if (wordRounds <= 0) {
         alert('Game Over! You have completed all rounds.');
         wordRounds = 5; // Reset the rounds if you want to allow another playthrough
         return;
     }
-    startCategoryGame(category);
-    initializeGameWithWord(word);
-    generateLetterButtons(); // recreate all buttons fresh every new round
-    // Reduce remaining rounds
-    wordRounds--;
+
+
+    console.log("🎯 Word:", word);
+    console.log("💡 Hint:", definition);
+
+    initializeGameWithWord(word);      // Initialize the game board
+    generateLetterButtons();           // Reset letters
+    wordRounds--;                      // Decrease round count
 }
 
-
+console.log("🔁 Starting round with category:", category);
 // Auto-run only if browser
 if (typeof window !== 'undefined') {
     generateLetterButtons();

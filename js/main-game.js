@@ -11,12 +11,10 @@ const gameArea = document.getElementById('game');
 const categoryWindow = document.getElementById('category-selection-window');
 
 const playWordButton = document.getElementById('play-word-button');
-const playCategoryButton = document.getElementById('play-category-button');
 
 const wordValue = document.getElementById('word');
-const categoryValue = document.getElementById('category');
+
 const livesValue = document.getElementById('lives');
-const categoryLives = document.getElementById('category-lives');
 const head = document.getElementById('headGame');
 const body = document.getElementById('bodyGame');
 const leftArm = document.getElementById('leftArmGame');
@@ -26,7 +24,10 @@ const rightLeg = document.getElementById('rightLegGame');
 const sound = document.getElementById('button-audio');
 
 
-const categorySelection = document.getElementById('categories');
+const categorySelection = document.getElementById('categories'); // The category select element
+const categoryValue = document.getElementById('category-words'); // Number of words select
+const categoryLivesValue = document.getElementById('category-lives'); // Lives select
+const playCategoryButton = document.getElementById('play-category-button'); // Start button
 
 
 const bodyParts = [
@@ -52,7 +53,7 @@ startGameButton.addEventListener('click', () => {
     });
 });
 
-// === MODE SELECTION ===
+// Word Mode Details
 wordMode.addEventListener('click', () => {
     sound.play();
     currentMode = 'word';
@@ -63,18 +64,6 @@ wordMode.addEventListener('click', () => {
     gameArea.style.display = 'none';
 });
 
-categoryMode.addEventListener('click', () => {
-    sound.play();
-    currentMode = 'category';
-    categoryWindow.style.display = 'flex';
-    mainGame.style.display = 'none';
-    gameScreen.style.display = 'flex';
-    wordWindow.style.display = 'none';
-    categoryWindow2.style.display = 'none';
-    gameArea.style.display = 'none';
-});
-
-// === PLAY BUTTONS ===
 playWordButton.addEventListener('click', () => {
     sound.play();
     const wordCount = wordValue.value;
@@ -96,36 +85,6 @@ playWordButton.addEventListener('click', () => {
 });
 
 
-categorySelection.addEventListener('click', () => {
-    sound.play();
-    currentMode = 'category';
-    categoryWindow2.style.display = 'flex';
-    mainGame.style.display = 'none';
-    gameScreen.style.display = 'flex';
-    wordWindow.style.display = 'none';
-    categoryWindow.style.display = 'none';
-    gameArea.style.display = 'none';
-});
-
-
-
-
-playCategoryButton.addEventListener('click', () => {
-    const categoryCount = categoryValue.value;
-    const lives = categoryLives.value;
-    
-
-    console.log(`Starting Slogan Mode with ${categoryCount} slogans and ${lives} lives`);
-
-    gameScreen.style.display = 'none';
-    gameArea.style.display = 'flex';
-
-
-    // Initialize Slogan Mode Game
-    initCategoryGame(categoryCount, parseInt(lives));
-
-});
-
 function initWordGame(wordCount, selectedLives) {
     maxLives = selectedLives;
     livesLeft = maxLives;
@@ -138,17 +97,68 @@ function initWordGame(wordCount, selectedLives) {
     startHangoverGame();  // Start the game with the selected number of rounds
 }
 
-function initCategoryGame(categoryCount, selectedLives) {
+
+// Category Mode Details
+
+categoryMode.addEventListener('click', () => {
+    sound.play();
+    currentMode = 'category';
+    categoryWindow.style.display = 'flex';
+    mainGame.style.display = 'none';
+    gameScreen.style.display = 'flex';
+    wordWindow.style.display = 'none';
+    categoryWindow2.style.display = 'none';
+    gameArea.style.display = 'none';
+});
+
+categorySelection.addEventListener('click', () => {
+    sound.play();
+    currentMode = 'category';
+    categoryWindow2.style.display = 'flex';
+    mainGame.style.display = 'none';
+    gameScreen.style.display = 'flex';
+    wordWindow.style.display = 'none';
+    categoryWindow.style.display = 'none';
+    gameArea.style.display = 'none';
+});
+
+
+playCategoryButton.addEventListener('click', () => {
+    const categoryWords = categoryValue.value; // Get the selected category
+    const lives = categoryLives.value;
+
+
+
+    console.log(`Starting Category Mode with ${category} category and ${lives} lives`);
+
+    gameScreen.style.display = 'none';
+    gameArea.style.display = 'flex';
+
+    // Initialize Category Mode Game
+    initCategoryGame(categoryWords, parseInt(lives));  // Pass the category to initCategoryGame
+});
+
+function initCategoryGame(categoryWords, selectedLives) {
     maxLives = selectedLives;
     livesLeft = maxLives;
-    wordRounds = parseInt(categoryCount); 
+    wordRounds = parseInt(categoryWords); // or parseInt(categoryCount); you can adjust this if needed
     const livesSelect = document.getElementById('lives');
     totalLives = parseInt(livesSelect.value, 10);
     bodyParts.forEach(part => part.style.display = 'none');
-    livesLeft = totalLives; // Set the number of rounds based on user selection
+    livesLeft = totalLives;
+
     renderLives();
-    startHangoverCategoryGame();  // Start the game with the selected number of rounds
+
+    console.log(`Starting round with category: ${category}`); // Log the selected category
+
+    startHangoverCategoryGame(category);  // Pass the category correctly
 }
+
+
+
+
+
+
 
 function renderLives() {
     const container = document.getElementById('lives-container');
