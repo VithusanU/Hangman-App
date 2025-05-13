@@ -101,42 +101,41 @@ function handleLetterClick(letter) {
     const lowerLetter = letter.toLowerCase();
     const button = document.querySelector(`[data-letter="${letter}"]`);
 
-    // Play the sound
-    letterBtnSound.currentTime = 0; // Reset to the beginning
+    letterBtnSound.currentTime = 0;
     letterBtnSound.play();
 
-    // Stop the sound after a short period (e.g., 200 milliseconds)
     setTimeout(() => {
         letterBtnSound.pause();
-    }, 400);  // Adjust 200 to the length you want (in milliseconds)
+    }, 400);
 
     if (guessedLetters.includes(lowerLetter)) return;
     guessedLetters.push(lowerLetter);
 
-    if (currentWord.includes(lowerLetter)) {
+    if (currentWord.toLowerCase().includes(lowerLetter)) {
         console.log(`Correct guess: ${letter}`);
         button.style.backgroundColor = 'green';
         button.style.color = 'white';
+
         const wordDisplay = document.getElementById('chosen-word');
         const spans = wordDisplay.querySelectorAll('span');
 
         for (let i = 0; i < currentWord.length; i++) {
-            if (currentWord[i] === lowerLetter) {
-                spans[i].textContent = currentWord[i];
+            if (currentWord[i].toLowerCase() === lowerLetter) {
+                spans[i].textContent = currentWord[i]; // Keep original casing
             }
         }
 
-        checkWinCondition(); // If this is defined
+        checkWinCondition();
     } else {
         console.log(`Wrong guess: ${letter}`);
         button.style.backgroundColor = 'red';
         button.style.color = 'white';
-
-        handleWrongGuess(); // Optional function
+        handleWrongGuess();
     }
 
     button.disabled = true;
 }
+
 
 function handleWrongGuess() {
     livesLeft--;
@@ -1070,14 +1069,6 @@ async function fetchDefinition(word) {
 
 let currentCategory = '';
 function selectCategory(category) {
-    sound.play();  // Play sound when category is selected
-    currentMode = 'category';
-    categoryWindow2.style.display = 'flex';
-    categoryWindow.style.display = 'none';
-    mainGame.style.display = 'none';
-    gameScreen.style.display = 'flex';
-    gameArea.style.display = 'none';
-
     // Set the selected category in a global variable or pass it to the game initialization function
     currentCategory = category;  // Store the selected category
     console.log(`Category selected: ${category}`);
@@ -1151,8 +1142,6 @@ async function startHangoverCategoryGame(category) {
     generateLetterButtons();           // Reset letters
     wordRounds--;                      // Decrease round count
 }
-
-console.log("🔁 Starting round with category:", category);
 // Auto-run only if browser
 if (typeof window !== 'undefined') {
     generateLetterButtons();
