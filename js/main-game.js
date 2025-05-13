@@ -151,7 +151,7 @@ function initCategoryGame(selectedCategory , categoryWordCount , selectedLives) 
     maxLives = selectedLives;
     livesLeft = maxLives;
     wordRounds = parseInt(categoryWordCount); // or parseInt(categoryCount); you can adjust this if needed
-    const livesSelect = document.getElementById('lives');
+    const livesSelect = document.getElementById('category-lives');
     totalLives = parseInt(livesSelect.value, 10);
     bodyParts.forEach(part => part.style.display = 'none');
     livesLeft = totalLives;
