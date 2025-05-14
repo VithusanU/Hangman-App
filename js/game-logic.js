@@ -189,12 +189,22 @@ function checkWinCondition() {
 
     const allRevealed = [...spans].every(span => span.textContent !== '');
     if (allRevealed) {
-        if (wordRounds > 0) {
-            alert('You guessed the word! Moving on to the next word...');
-            startHangoverGame();
-        } else {
-            endGame(true);
+        if (currentMode === 'word') {
+            if (wordRounds > 0) {
+                alert('You guessed the word! Moving on to the next word...');
+                startHangoverGame();
+            } else {
+                endGame(true);
+            }
+        } else if (currentMode === 'category') {
+            if (wordRounds > 0) {
+                alert('You guessed the word! Moving on to the next word...');
+                startHangoverCategoryGame(selectedCategory);
+            } else {
+                endGame(true);
+            }
         }
+
     }
 }
 
@@ -607,7 +617,7 @@ const wordBanks = {
         "Jurassic Park: The Lost World",
         "The Lord of the Rings: The Return of the King"
     ],
-    countries : [
+    countries: [
         "Canada",
         "Brazil",
         "Germany",
@@ -906,8 +916,8 @@ const movieHints = {
     "Star Wars: The Last Jedi": "The Resistance fights the First Order amid Jedi legacies.",
     "Jurassic Park: The Lost World": "Dinosaurs roam a second island and are brought to the mainland.",
     "The Lord of the Rings: The Return of the King": "The final battle for Middle-earth unfolds."
-  };
-  
+};
+
 const countryHints = {
     "Canada": "Known for its vast landscapes, maple syrup, and being the second-largest country by area.",
     "Brazil": "Home to the Amazon Rainforest and famous for Carnival and football.",
@@ -1004,8 +1014,8 @@ const countryHints = {
     "Kosovo": "Europe's newest country with a youthful energy.",
     "Montenegro": "Adriatic coastline and dramatic mountain landscapes.",
     "Bosnia and Herzegovina": "Known for its cultural mix and post-war recovery."
-  };
-  
+};
+
 
 const categoryEmojis = {
     companies: "🏢",
@@ -1099,7 +1109,7 @@ async function showHint(word) {
 const categories = Object.keys(wordBanks);
 
 function categoryDisplay() {
-    const categoriesWindow= document.getElementById('categories');
+    const categoriesWindow = document.getElementById('categories');
     categoriesWindow.innerHTML = '';
 
     categories.forEach(category => {
@@ -1127,7 +1137,7 @@ async function startHangoverCategoryGame(category) {
 
     const { word, definition } = await getWordAndDefinitionFromCategory(category);
 
-    
+
     if (wordRounds <= 0) {
         alert('Game Over! You have completed all rounds.');
         wordRounds = 5; // Reset the rounds if you want to allow another playthrough
