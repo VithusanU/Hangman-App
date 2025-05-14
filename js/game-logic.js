@@ -246,7 +246,12 @@ function resetGame() {
     gameEndScreen.style.display = 'none';
 
     // Restart the game with a new word
-    startHangoverGame(); // Assuming this starts the game again with a new word
+    if (currentMode === 'word') {
+        startHangoverGame(); // Assuming this starts the game again with a new word
+    } else if (currentMode === 'category') {
+        startHangoverCategoryGame(currentCategory);
+    }
+        
 }
 
 const playAgainButton = document.getElementById('playAgain');
