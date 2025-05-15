@@ -14,32 +14,51 @@ const letterBtnSound = document.getElementById('letter-sound');
 async function getRandomWord() {
     try {
         let word = '';
+        let definition = '';
+        let attempts = 0;
+        const maxAttempts = 10;
+
         do {
             const response = await fetch('https://random-word-api.herokuapp.com/word?number=1');
             const data = await response.json();
-            word = data[0];
-        } while (word.length < 3 || word.length > 7); // Keep fetching until we get a word of the correct length
+            word = data[0].toLowerCase();
+
+            // Skip if word length is not valid
+            if (word.length < 3 || word.length > 7) {
+                continue;
+            }
+
+            // Fetch definition
+            definition = await fetchDefinition(word);
+
+            attempts++;
+        } while ((definition === 'No hint available.' || word.length < 3 || word.length > 7) && attempts < maxAttempts);
+
+        if (definition === 'No hint available.') {
+            console.warn('Fallback used — no suitable word found with a valid hint.');
+            return { word: 'fallback', definition: 'No definition available.' };
+        }
+
         console.log('Random Word:', word);
-        return word.toLowerCase();
+        console.log('Definition:', definition);
+        return { word, definition };
+
     } catch (error) {
         console.error('Failed to get word:', error);
-        return 'fallback'; // Provide a fallback word in case of an error
+        return { word: 'fallback', definition: 'No definition available.' };
     }
 }
 
 // Initialize the game board with underscores
-async function initializeGameWithWord(word) {
+async function initializeGameWithWord(word, hint) {
     currentWord = word;
     guessedLetters = [];
-
-    const currentHint = await fetchDefinition(currentWord);
+    currentHint = hint; // directly use passed-in hint
 
     const hintDisplay = document.getElementById('hint');
     if (hintDisplay) {
         await typeHintText(hintDisplay, `Hint: ${currentHint}`, 40); // 40ms per char
     }
-
-
 
     const wordDisplay = document.getElementById('chosen-word');
     if (wordDisplay) {
@@ -53,7 +72,6 @@ async function initializeGameWithWord(word) {
         }
     }
 
-
     console.log("Game Initialized with word:", word);
     console.log('This is the Hint:', currentHint);
 
@@ -63,6 +81,7 @@ async function initializeGameWithWord(word) {
     globalThis.currentHint = currentHint;
 }
 
+
 // Start game using fetched word
 async function startHangoverGame() {
     if (wordRounds <= 0) {
@@ -71,12 +90,12 @@ async function startHangoverGame() {
         return;
     }
 
-    const word = await getRandomWord();
-    initializeGameWithWord(word);
-    generateLetterButtons(); // recreate all buttons fresh every new round
-    // Reduce remaining rounds
-    wordRounds--;
+    const { word, definition } = await getRandomWord(); // ✅ FIXED
+    await initializeGameWithWord(word, definition);      // ✅ Pass correct values
+    generateLetterButtons();                             // Recreate buttons
+    wordRounds--;                                        // Reduce remaining rounds
 }
+
 
 function generateLetterButtons() {
     const lettersContainer = document.getElementById('letters');
