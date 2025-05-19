@@ -50,10 +50,10 @@ async function getRandomWord() {
 }
 
 // Initialize the game board with underscores
-async function initializeGameWithWord(word, hint) {
+async function initializeGameWithWord(word, definition) {
     currentWord = word;
     guessedLetters = [];
-    currentHint = hint; // directly use passed-in hint
+    currentHint = definition; // directly use passed-in hint
 
     const hintDisplay = document.getElementById('hint');
     if (hintDisplay) {
@@ -71,9 +71,9 @@ async function initializeGameWithWord(word, hint) {
             wordDisplay.appendChild(letterSpan);
         }
     }
-
-    console.log("Game Initialized with word:", word);
-    console.log('This is the Hint:', currentHint);
+  
+        console.log("Game Initialized with word:", word);
+        console.log('This is the Hint:', currentHint);
 
     // Sync globals (so tests can see updates)
     globalThis.currentWord = currentWord;
@@ -407,11 +407,11 @@ const wordBanks = {
         "Rugby",
         "Hockey",
         "Volleyball",
-        "Table Tennis",
+        "Table_Tennis",
         "Badminton",
         "Swimming",
         "Cycling",
-        "Track and Field",
+        "Track_and_Field",
         "Boxing",
         "MMA",
         "Wrestling",
@@ -421,7 +421,7 @@ const wordBanks = {
         "Skiing",
         "Snowboarding",
         "Lacrosse",
-        "Field Hockey",
+        "Field_Hockey",
         "Formula 1",
         "Motorsport",
         "Archery",
@@ -429,13 +429,13 @@ const wordBanks = {
         "Rowing",
         "Canoeing",
         "Kayaking",
-        "Horse Racing",
+        "Horse_Racing",
         "Equestrian",
         "Weightlifting",
         "Powerlifting",
         "Climbing",
         "Polo",
-        "Ultimate Frisbee",
+        "Ultimate_Frisbee",
         "Bowling",
         "Snooker",
         "Pool",
@@ -1040,6 +1040,54 @@ const countryHints = {
     "Bosnia and Herzegovina": "Known for its cultural mix and post-war recovery."
 };
 
+const sportHints = {
+    Soccer: "A game played with a round ball where players aim to score goals by kicking it into a net.",
+    Basketball: "Players shoot a ball through a hoop to score points in this fast-paced court game.",
+    Baseball: "A bat-and-ball game where players hit a ball and run bases to score.",
+    Football: "Known for touchdowns and tackles, played with an oval ball mostly in the US.",
+    Tennis: "Played on a court with rackets and a bouncing ball, either singles or doubles.",
+    Golf: "A precision sport where players aim to hit balls into holes on a course with the fewest strokes.",
+    Cricket: "A bat-and-ball game popular in many countries, featuring wickets and overs.",
+    Rugby: "A contact sport similar to football but with continuous play and no forward passes.",
+    Hockey: "Played on ice or field, where players use sticks to hit a puck or ball into a goal.",
+    Volleyball: "Players use hands to hit a ball over a net to land it on the opponents side.",
+    Table_Tennis: "A fast-paced racket game played on a small table with a lightweight ball.",
+    Badminton: "A racket sport played with a shuttlecock that must not touch the ground.",
+    Swimming: "A water-based sport involving strokes like freestyle, backstroke, and butterfly.",
+    Cycling: "Competitive or recreational racing using bicycles on roads or tracks.",
+    Track_and_Field: "Includes running, jumping, and throwing events usually held in stadiums.",
+    Boxing: "A combat sport where two opponents fight using their fists and protective gloves.",
+    MMA: "A full-contact sport combining techniques from boxing, wrestling, jiu-jitsu, and more.",
+    Wrestling: "A grappling sport where opponents aim to pin or throw each other to win.",
+    Gymnastics: "Features routines on bars, beams, and floors involving flips and strength.",
+    Skateboarding: "A sport involving tricks and stunts performed on a wheeled board.",
+    Surfing: "Riders use boards to glide on waves in the ocean.",
+    Skiing: "Sliding down snowy slopes on two long narrow pieces of equipment.",
+    Snowboarding: "Like skiing, but using a single board to ride snowy mountains.",
+    Lacrosse: "A team sport where players use a stick with a net to catch and shoot a ball.",
+    Field_Hockey: "Played on grass or turf, players use sticks to move a ball toward the goal.",
+    Formula_1: "High-speed racing sport involving single-seat cars on international circuits.",
+    Motorsport: "Broad term for competitive auto or motorcycle racing.",
+    Archery: "Competitors shoot arrows at a target using a bow for accuracy points.",
+    Fencing: "A duel sport involving swords and quick footwork to land valid strikes.",
+    Rowing: "Athletes race boats using oars on rivers or lakes.",
+    Canoeing: "Paddling a lightweight boat using a single-bladed paddle.",
+    Kayaking: "A water sport using a small boat and double-bladed paddle.",
+    Horse_Racing: "Jockeys ride horses in races to be the fastest to the finish line.",
+    Equestrian: "Includes horse-related events like dressage, jumping, and eventing.",
+    Weightlifting: "Lifting heavy barbells in two styles: snatch and clean & jerk.",
+    Powerlifting: "Tests max strength in squat, bench press, and deadlift.",
+    Climbing: "Athletes scale vertical surfaces using strength, technique, and gear.",
+    Polo: "Teams on horseback use mallets to hit a ball into the opposing goal.",
+    Ultimate_Frisbee: "A team sport using a flying disc, aiming to pass it into the end zone.",
+    Bowling: "Players roll a ball down a lane to knock down pins.",
+    Snooker: "A cue sport played on a large table with red and colored balls.",
+    Pool: "A cue sport where players sink balls into pockets on a billiards table.",
+    Poker: "A card game combining luck, strategy, and betting.",
+    Esports: "Competitive video gaming across genres like FPS, MOBA, and fighting games."
+};
+  
+
 
 const categoryEmojis = {
     companies: "🏢",
@@ -1072,6 +1120,8 @@ async function getWordAndDefinitionFromCategory(category) {
         definition = movieHints[word] || 'No hint available for this movie!'
     } else if (category === 'countries') {
         definition = countryHints[word] || 'No hint available for this country!'
+    } else if (category === 'sports') {
+        definition = sportHints[word] || 'No hint available for this country!'
     } else {
         definition = await fetchDefinition(word);
     }
@@ -1172,7 +1222,7 @@ async function startHangoverCategoryGame(category) {
     console.log("🎯 Word:", word);
     console.log("💡 Hint:", definition);
 
-    initializeGameWithWord(word);      // Initialize the game board
+    initializeGameWithWord(word, definition);      // Initialize the game board
     generateLetterButtons();           // Reset letters
     wordRounds--;                      // Decrease round count
 }
