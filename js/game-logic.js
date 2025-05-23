@@ -8,7 +8,8 @@ let totalLives = 7; // default
 let livesLeft = totalLives;
 globalThis.currentMode = ''; // Default to an empty string
 const letterBtnSound = document.getElementById('letter-sound');
-
+const timer = document.getElementById('timer');
+let gameTimer; // Define once globally
 
 // Fetch a random word
 async function getRandomWord() {
@@ -49,7 +50,6 @@ async function getRandomWord() {
     }
 }
 
-// Initialize the game board with underscores
 async function initializeGameWithWord(word, definition) {
     // Convert underscores to spaces if needed
     currentWord = word.replace(/_/g, ' ');
@@ -59,6 +59,18 @@ async function initializeGameWithWord(word, definition) {
     const hintDisplay = document.getElementById('hint');
     if (hintDisplay) {
         await typeHintText(hintDisplay, `Hint: ${currentHint}`, 40);
+
+        // 👇 Start or resume timer here after hint is done typing
+        if (!gameTimer) {
+            gameTimer = new ControllableTimer(
+                60,
+                (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
+                () => alert("⏰ Time's up!")
+            );
+        } else {
+            gameTimer.reset(); // Reset to full time
+        }
+        gameTimer.start(); // Start countdown
     }
 
     const wordDisplay = document.getElementById('chosen-word');
@@ -69,11 +81,10 @@ async function initializeGameWithWord(word, definition) {
             const letterSpan = document.createElement('span');
 
             if (letter === ' ') {
-                // Style empty span or use a non-breaking space for visibility
                 letterSpan.textContent = ' ';
-                letterSpan.classList.add('letter', 'space'); // Optional class if you want to style it
+                letterSpan.classList.add('letter', 'space');
             } else {
-                letterSpan.textContent = ''; // Leave blank until guessed
+                letterSpan.textContent = '';
                 letterSpan.classList.add('letter');
             }
 
@@ -91,19 +102,24 @@ async function initializeGameWithWord(word, definition) {
 
 
 
+
 // Start game using fetched word
 async function startHangoverGame() {
+    // ⏸ Pause any existing timer before doing anything else
+    if (gameTimer) gameTimer.pause();
+
     if (wordRounds <= 0) {
         alert('Game Over! You have completed all rounds.');
         wordRounds = 5; // Reset the rounds if you want to allow another playthrough
         return;
     }
 
-    const { word, definition } = await getRandomWord(); // ✅ FIXED
-    await initializeGameWithWord(word, definition);      // ✅ Pass correct values
-    generateLetterButtons();                             // Recreate buttons
-    wordRounds--;                                        // Reduce remaining rounds
+    const { word, definition } = await getRandomWord(); 
+    await initializeGameWithWord(word, definition); // Timer will be resumed there
+    generateLetterButtons(); 
+    wordRounds--; 
 }
+
 
 
 function generateLetterButtons() {
@@ -1148,6 +1164,22 @@ function selectCategory(category) {
 }
 
 
+function typeHint(text, elementId, onComplete) {
+    const element = document.getElementById(elementId);
+    element.textContent = "";
+    let i = 0;
+
+    const interval = setInterval(() => {
+        if (i < text.length) {
+            element.textContent += text[i];
+            i++;
+        } else {
+            clearInterval(interval);
+            onComplete(); // Resume or start timer
+        }
+    }, 50);
+}
+
 async function typeHintText(element, text, delay = 50) {
     element.textContent = ''; // Clear existing content
     for (let i = 0; i < text.length; i++) {
@@ -1195,31 +1227,71 @@ categoryDisplay();
 
 
 async function startHangoverCategoryGame(category) {
-    console.log("📛 Category Received:", category);
+    // ⏸ Pause any existing timer before fetching or typing
+    if (gameTimer) gameTimer.pause();
 
+    console.log("📛 Category Received:", category);
 
     const { word, definition } = await getWordAndDefinitionFromCategory(category);
 
-
     if (wordRounds <= 0) {
         alert('Game Over! You have completed all rounds.');
-        wordRounds = 5; // Reset the rounds if you want to allow another playthrough
+        wordRounds = 5; // Reset if needed
         return;
     }
-
 
     console.log("🎯 Word:", word);
     console.log("💡 Hint:", definition);
 
-    initializeGameWithWord(word, definition);      // Initialize the game board
-    generateLetterButtons();           // Reset letters
-    wordRounds--;                      // Decrease round count
+    await initializeGameWithWord(word, definition);  // Wait for hint to finish typing
+    generateLetterButtons();                         // Reset letter buttons
+    wordRounds--;                                    // Decrease round count
 }
+
 
 
 
 // Auto-run only if browser
 if (typeof window !== 'undefined') {
     generateLetterButtons();
+}
+
+// Controllable Timer Class
+class ControllableTimer {
+    constructor(seconds, onTick, onComplete) {
+        this.total = seconds;
+        this.remaining = seconds;
+        this.interval = null;
+        this.onTick = onTick;
+        this.onComplete = onComplete;
+    }
+
+    start() {
+        if (this.interval) return;
+        this.interval = setInterval(() => {
+            if (this.remaining > 0) {
+                this.remaining--;
+                this.onTick(this.remaining);
+            } else {
+                this.pause();
+                this.onComplete();
+            }
+        }, 1000);
+    }
+
+    pause() {
+        clearInterval(this.interval);
+        this.interval = null;
+    }
+
+    reset(seconds = this.total) {
+        this.pause();
+        this.remaining = seconds;
+        this.onTick(this.remaining);
+    }
+
+    resume() {
+        this.start();
+    }
 }
 

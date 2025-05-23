@@ -31,6 +31,7 @@ const playCategoryButton = document.getElementById('play-category-button'); // S
 let selectedCategory = null; // This will store the category selected from button click
 
 
+
 const bodyParts = [
     document.getElementById('headGame'),
     document.getElementById('bodyGame'),
@@ -94,6 +95,12 @@ function initWordGame(wordCount, selectedLives) {
     totalLives = parseInt(livesSelect.value, 10);
     bodyParts.forEach(part => part.style.display = 'none');
     livesLeft = totalLives;
+    gameTimer = new ControllableTimer(
+        60, 
+        (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
+        () => alert("⏰ Time's up!")
+    );
+    
     renderLives();
     startHangoverGame();  // Start the game with the selected number of rounds
 }
@@ -159,7 +166,12 @@ function initCategoryGame(selectedCategory , categoryWordCount , selectedLives) 
     renderLives();
 
     console.log(`Starting round with category: ${selectedCategory}`); // Log the selected category
-
+    gameTimer = new ControllableTimer(
+        60, 
+        (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
+        () => alert("⏰ Time's up!")
+    );
+    
     startHangoverCategoryGame(selectedCategory);  // Pass the category correctly
 }
 
@@ -184,3 +196,6 @@ returnButton.addEventListener('click', ()=>{
     mainGame.style.display = 'flex';
     gameArea.style.display = 'none';
 })
+
+
+
