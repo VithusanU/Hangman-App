@@ -518,3 +518,21 @@ body {
     content: '|';
     animation: blink 0.8s steps(1) infinite;
 }
+
+
+#return-button {
+position: absolute;
+bottom: 50px;
+}
+
+#return {
+width: 250px;
+height: 40px;
+border-radius: 3px;
+}
+
+#return:hover {
+    background-color: black;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

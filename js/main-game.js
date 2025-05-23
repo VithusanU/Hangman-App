@@ -164,11 +164,6 @@ function initCategoryGame(selectedCategory , categoryWordCount , selectedLives) 
 }
 
 
-
-
-
-
-
 function renderLives() {
     const container = document.getElementById('lives-container');
     if (!container) return;
@@ -182,3 +177,10 @@ function renderLives() {
     }
 }
 
+
+const returnButton = document.getElementById('return');
+
+returnButton.addEventListener('click', ()=>{
+    mainGame.style.display = 'flex';
+    gameArea.style.display = 'none';
+})

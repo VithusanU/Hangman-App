@@ -1215,7 +1215,11 @@ async function startHangoverCategoryGame(category) {
     generateLetterButtons();           // Reset letters
     wordRounds--;                      // Decrease round count
 }
+
+
+
 // Auto-run only if browser
 if (typeof window !== 'undefined') {
     generateLetterButtons();
 }
+
