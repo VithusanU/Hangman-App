@@ -162,14 +162,13 @@ function initCategoryGame(selectedCategory , categoryWordCount , selectedLives) 
     totalLives = parseInt(livesSelect.value, 10);
     bodyParts.forEach(part => part.style.display = 'none');
     livesLeft = totalLives;
-
     renderLives();
 
     console.log(`Starting round with category: ${selectedCategory}`); // Log the selected category
     gameTimer = new ControllableTimer(
         60, 
         (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
-        () => alert("⏰ Time's up!")
+        () => showGameEnd(false)
     );
     
     startHangoverCategoryGame(selectedCategory);  // Pass the category correctly
