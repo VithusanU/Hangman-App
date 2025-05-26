@@ -113,7 +113,7 @@ async function startHangoverGame() {
         wordRounds = 5; // Reset the rounds if you want to allow another playthrough
         return;
     }
-
+    console.trace("🕹️ startHangoverGame called");
     const { word, definition } = await getRandomWord(); 
     await initializeGameWithWord(word, definition); // Timer will be resumed there
     generateLetterButtons(); 
@@ -300,18 +300,22 @@ function resetGame() {
         
 }
 
-const playAgainButton = document.getElementById('playAgain');
-playAgainButton.addEventListener('click', () => {
-    sound.play();
-    // Reset lives and visuals
-    livesLeft = totalLives;
-    bodyParts.forEach(part => part.style.display = 'none');
-    renderLives();
+let playAgainInitialized = false;
 
-    // Restart the game
-    resetGame();
+function initPlayAgainButton() {
+    if (playAgainInitialized) return; // Prevent multiple listeners
+    playAgainInitialized = true;
+    console.log("🔘 Play Again listener added");
+    const playAgainButton = document.getElementById('playAgain');
+    playAgainButton.addEventListener('click', () => {
+        sound.play();
+        livesLeft = totalLives;
+        bodyParts.forEach(part => part.style.display = 'none');
+        renderLives();
+        resetGame();
+    });
+}
 
-});
 
 
 // Categories logic
