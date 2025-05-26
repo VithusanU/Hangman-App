@@ -521,8 +521,8 @@ body {
 
 
 #return-button {
-position: absolute;
-bottom: 50px;
+display: flex;
+justify-content: center;
 }
 
 #return {
@@ -535,4 +535,9 @@ border-radius: 3px;
     background-color: black;
     color: white;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#timer-container {
+    display: flex;
+    justify-content: center;
 }

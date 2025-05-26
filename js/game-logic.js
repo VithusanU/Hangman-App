@@ -220,13 +220,7 @@ function showGameEnd(win) {
     const playAgainButton = document.getElementById('playAgain');
     playAgainButton.style.display = 'block';  // Make sure it's visible when game ends
 
-    // Add an event listener to the "Play Again" button to reset the game
-    playAgainButton.addEventListener('click', () => {
-        sound.play();  // Play sound if needed
 
-        // Always reset the game when the button is clicked
-        resetGame();
-    });
 }
 
 function checkWinCondition() {
