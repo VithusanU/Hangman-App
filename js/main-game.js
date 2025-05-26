@@ -100,7 +100,8 @@ function initWordGame(wordCount, selectedLives) {
         (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
         () => alert("⏰ Time's up!")
     );
-    
+    initPlayAgainButton();
+
     renderLives();
     startHangoverGame();  // Start the game with the selected number of rounds
 }
@@ -170,7 +171,8 @@ function initCategoryGame(selectedCategory , categoryWordCount , selectedLives) 
         (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
         () => showGameEnd(false)
     );
-    
+    initPlayAgainButton();
+
     startHangoverCategoryGame(selectedCategory);  // Pass the category correctly
 }
 
