@@ -102,5 +102,5 @@ window.addEventListener('load', () => {
 // === Background Music Volume Control ===
 const music = document.getElementById('bg-music');
 if (music) {
-    music.volume = 0.00; //muted for now
+    music.volume = 0.10; //muted for now
 }

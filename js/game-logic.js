@@ -1219,16 +1219,21 @@ categoryDisplay();
 
 
 async function startHangoverCategoryGame(category) {
-    // ⏸ Pause any existing timer before fetching or typing
-    if (gameTimer) gameTimer.pause();
-
-    console.log("📛 Category Received:", category);
-
-    const { word, definition } = await getWordAndDefinitionFromCategory(category);
-
     if (wordRounds <= 0) {
         alert('Game Over! You have completed all rounds.');
         wordRounds = 5; // Reset if needed
+        clearTimerUIAndLogic();   // 🧹 Clean up any timers
+        return;
+    }
+
+    console.log("📛 Category Received:", category);
+
+    if (gameTimer) gameTimer.pause(); // ⏸ Pause during loading/typing
+
+    const { word, definition } = await getWordAndDefinitionFromCategory(category);
+
+    if (!word) {
+        alert('Failed to fetch word. Please try again.');
         return;
     }
 
@@ -1237,8 +1242,9 @@ async function startHangoverCategoryGame(category) {
 
     await initializeGameWithWord(word, definition);  // Wait for hint to finish typing
     generateLetterButtons();                         // Reset letter buttons
-    wordRounds--;                                    // Decrease round count
+    wordRounds--;                                    // ✅ Decrease only if round starts
 }
+
 
 
 
@@ -1287,9 +1293,15 @@ class ControllableTimer {
     }
 }
 
-function clearTimer() {
+function clearTimerUIAndLogic() {
     if (gameTimer) {
         gameTimer.pause();
         gameTimer = null;
     }
+
+    const timerContainer = document.getElementById('timer-container');
+    if (timerContainer) timerContainer.style.display = 'none';
+
+    const timerDisplay = document.getElementById('timer-display');
+    if (timerDisplay) timerDisplay.textContent = ''; // Optional: reset to empty or "0"
 }

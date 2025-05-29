@@ -88,34 +88,36 @@ playWordButton.addEventListener('click', () => {
 
 
 function initWordGame(wordCount, selectedLives) {
+    clearTimerUIAndLogic();
+
     maxLives = selectedLives;
     livesLeft = maxLives;
-    wordRounds = parseInt(wordCount);  // Set the number of rounds based on user selection
+    wordRounds = parseInt(wordCount);
     const livesSelect = document.getElementById('lives');
     totalLives = parseInt(livesSelect.value, 10);
     bodyParts.forEach(part => part.style.display = 'none');
     livesLeft = totalLives;
+
     const timerToggle = document.getElementById('timer-toggle');
     const timerContainer = document.getElementById('timer-container');
 
-    if (timerToggle.checked) {
-        // Show the timer UI and start the timer
+    if (timerToggle && timerToggle.checked) {
         timerContainer.style.display = 'flex';
         gameTimer = new ControllableTimer(
             60,
-            (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
+            (timeLeft) => {
+                const display = document.getElementById('timer-display');
+                if (display) display.textContent = timeLeft;
+            },
             () => showGameEnd(false)
         );
-    } else {
-        // Completely disable timer logic and hide UI
-        timerContainer.style.display = 'none';
-        gameTimer = null; // Optional: clear reference if previously set
     }
-    initPlayAgainButton();
 
+    initPlayAgainButton();
     renderLives();
-    startHangoverGame();  // Start the game with the selected number of rounds
+    startHangoverGame();
 }
+
 
 
 // Category Mode Details
@@ -167,25 +169,22 @@ playCategoryButton.addEventListener('click', () => {
 });
 
 function initCategoryGame(selectedCategory, categoryWordCount, selectedLives) {
+    clearTimerUIAndLogic();
+
     maxLives = selectedLives;
     livesLeft = maxLives;
     wordRounds = parseInt(categoryWordCount, 10);
-
     const livesSelect = document.getElementById('category-lives');
     totalLives = parseInt(livesSelect.value, 10);
     bodyParts.forEach(part => part.style.display = 'none');
     livesLeft = totalLives;
     renderLives();
 
-    console.log(`Starting round with category: ${selectedCategory}`);
-
-    const timerToggle = document.getElementById('timer-toggle');
+    const CattimerToggle = document.getElementById('category-timer-toggle');
     const timerContainer = document.getElementById('timer-container');
 
-    if (timerToggle && timerToggle.checked) {
-        // ✅ Show timer UI and initialize timer BEFORE game starts
-        if (timerContainer) timerContainer.style.display = 'flex';
-
+    if (CattimerToggle && CattimerToggle.checked) {
+        timerContainer.style.display = 'flex';
         gameTimer = new ControllableTimer(
             60,
             (timeLeft) => {
@@ -194,18 +193,12 @@ function initCategoryGame(selectedCategory, categoryWordCount, selectedLives) {
             },
             () => showGameEnd(false)
         );
-    } else {
-        // ✅ Hide timer UI and make sure no timer exists
-        if (timerContainer) timerContainer.style.display = 'none';
-        gameTimer = null;
     }
 
-    // Setup "play again" button
     initPlayAgainButton();
-
-    // ✅ Start the actual game now that timer is ready
     startHangoverCategoryGame(selectedCategory);
 }
+
 
 
 
