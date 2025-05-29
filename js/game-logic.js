@@ -60,18 +60,12 @@ async function initializeGameWithWord(word, definition) {
     if (hintDisplay) {
         await typeHintText(hintDisplay, `Hint: ${currentHint}`, 40);
 
-        // 👇 Start or resume timer here after hint is done typing
-        if (!gameTimer) {
-            gameTimer = new ControllableTimer(
-                60,
-                (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
-                () => alert("⏰ Time's up!")
-            );
-        } else {
-            gameTimer.reset(); // Reset to full time
+        if (gameTimer) {
+            gameTimer.reset();
+            gameTimer.start();
         }
-        gameTimer.start(); // Start countdown
-    }
+
+    };
 
     const wordDisplay = document.getElementById('chosen-word');
     if (wordDisplay) {
@@ -114,10 +108,10 @@ async function startHangoverGame() {
         return;
     }
     console.trace("🕹️ startHangoverGame called");
-    const { word, definition } = await getRandomWord(); 
+    const { word, definition } = await getRandomWord();
     await initializeGameWithWord(word, definition); // Timer will be resumed there
-    generateLetterButtons(); 
-    wordRounds--; 
+    generateLetterButtons();
+    wordRounds--;
 }
 
 
@@ -291,7 +285,7 @@ function resetGame() {
     } else if (currentMode === 'category') {
         startHangoverCategoryGame(currentCategory);
     }
-        
+
 }
 
 let playAgainInitialized = false;
@@ -478,7 +472,7 @@ const wordBanks = {
         "Counter_Strike",
         "Valorant",
         "Elden_Ring",
-    
+
         // Board Games
         "Monopoly",
         "Chess",
@@ -490,7 +484,7 @@ const wordBanks = {
         "Battleship",
         "Carrom",
         "Ticket_to_Ride",
-    
+
         // Card Games
         "Poker",
         "Blackjack",
@@ -502,7 +496,7 @@ const wordBanks = {
         "Rummy",
         "Crazy_Eights",
         "Magic_The_Gathering",
-    
+
         // Party Games
         "Charades",
         "Pictionary",
@@ -512,7 +506,7 @@ const wordBanks = {
         "Twister",
         "Cards_Against_Humanity",
         "Taboo",
-    
+
         // Classic Mini-Games
         "Tetris",
         "Pac_Man",
@@ -520,7 +514,7 @@ const wordBanks = {
         "Flappy_Bird",
         "Space_Invaders",
         "Doodle_Jump",
-    
+
         // Outdoor/Playground Games
         "Tag",
         "Hide_and_Seek",
@@ -754,7 +748,7 @@ const wordBanks = {
         "Kosovo",
         "Montenegro",
         "Bosnia_and_Herzegovina"
-    ]    
+    ]
 };
 
 const companyHints = {
@@ -1089,7 +1083,7 @@ const sportHints = {
     Poker: "A card game combining luck, strategy, and betting.",
     Esports: "Competitive video gaming across genres like FPS, MOBA, and fighting games."
 };
-  
+
 
 
 const categoryEmojis = {
@@ -1293,3 +1287,9 @@ class ControllableTimer {
     }
 }
 
+function clearTimer() {
+    if (gameTimer) {
+        gameTimer.pause();
+        gameTimer = null;
+    }
+}

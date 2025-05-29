@@ -39,7 +39,7 @@ const bodyParts = [
     document.getElementById('rightArmGame'),
     document.getElementById('leftLegGame'),
     document.getElementById('rightLegGame')
-  ];
+];
 
 globalThis.maxLives = 0;
 globalThis.livesLeft = 0;
@@ -49,7 +49,7 @@ globalThis.livesLeft = 0;
 startGameButton.addEventListener('click', () => {
     startGameButton.style.display = 'none';
     sound.play();
-    
+
     modeButtons.forEach(button => {
         button.style.display = 'block';
     });
@@ -95,11 +95,22 @@ function initWordGame(wordCount, selectedLives) {
     totalLives = parseInt(livesSelect.value, 10);
     bodyParts.forEach(part => part.style.display = 'none');
     livesLeft = totalLives;
-    gameTimer = new ControllableTimer(
-        60, 
-        (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
-        () => alert("⏰ Time's up!")
-    );
+    const timerToggle = document.getElementById('timer-toggle');
+    const timerContainer = document.getElementById('timer-container');
+
+    if (timerToggle.checked) {
+        // Show the timer UI and start the timer
+        timerContainer.style.display = 'flex';
+        gameTimer = new ControllableTimer(
+            60,
+            (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
+            () => showGameEnd(false)
+        );
+    } else {
+        // Completely disable timer logic and hide UI
+        timerContainer.style.display = 'none';
+        gameTimer = null; // Optional: clear reference if previously set
+    }
     initPlayAgainButton();
 
     renderLives();
@@ -141,7 +152,7 @@ categorySelection.addEventListener('click', (event) => {
 
 playCategoryButton.addEventListener('click', () => {
     sound.play();
-    
+
     const categoryWordCount = categoryValue.value
     const lives = categoryLivesValue.value;
 
@@ -155,26 +166,49 @@ playCategoryButton.addEventListener('click', () => {
     initCategoryGame(selectedCategory, categoryWordCount, parseInt(lives));  // Pass the category to initCategoryGame
 });
 
-function initCategoryGame(selectedCategory , categoryWordCount , selectedLives) {
+function initCategoryGame(selectedCategory, categoryWordCount, selectedLives) {
     maxLives = selectedLives;
     livesLeft = maxLives;
-    wordRounds = parseInt(categoryWordCount); // or parseInt(categoryCount); you can adjust this if needed
+    wordRounds = parseInt(categoryWordCount, 10);
+
     const livesSelect = document.getElementById('category-lives');
     totalLives = parseInt(livesSelect.value, 10);
     bodyParts.forEach(part => part.style.display = 'none');
     livesLeft = totalLives;
     renderLives();
 
-    console.log(`Starting round with category: ${selectedCategory}`); // Log the selected category
-    gameTimer = new ControllableTimer(
-        60, 
-        (timeLeft) => document.getElementById('timer-display').textContent = timeLeft,
-        () => showGameEnd(false)
-    );
+    console.log(`Starting round with category: ${selectedCategory}`);
+
+    const timerToggle = document.getElementById('timer-toggle');
+    const timerContainer = document.getElementById('timer-container');
+
+    if (timerToggle && timerToggle.checked) {
+        // ✅ Show timer UI and initialize timer BEFORE game starts
+        if (timerContainer) timerContainer.style.display = 'flex';
+
+        gameTimer = new ControllableTimer(
+            60,
+            (timeLeft) => {
+                const display = document.getElementById('timer-display');
+                if (display) display.textContent = timeLeft;
+            },
+            () => showGameEnd(false)
+        );
+    } else {
+        // ✅ Hide timer UI and make sure no timer exists
+        if (timerContainer) timerContainer.style.display = 'none';
+        gameTimer = null;
+    }
+
+    // Setup "play again" button
     initPlayAgainButton();
 
-    startHangoverCategoryGame(selectedCategory);  // Pass the category correctly
+    // ✅ Start the actual game now that timer is ready
+    startHangoverCategoryGame(selectedCategory);
 }
+
+
+
 
 
 function renderLives() {
@@ -193,9 +227,10 @@ function renderLives() {
 
 const returnButton = document.getElementById('return');
 
-returnButton.addEventListener('click', ()=>{
+returnButton.addEventListener('click', () => {
     mainGame.style.display = 'flex';
     gameArea.style.display = 'none';
+    clearTimer();
 })
 
 

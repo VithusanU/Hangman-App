@@ -538,6 +538,11 @@ border-radius: 3px;
 }
 
 #timer-container {
-    display: flex;
+    display: none;
     justify-content: center;
+}
+
+#timer-toggle {
+    height: 50px;
+    width: 50px;
 }
