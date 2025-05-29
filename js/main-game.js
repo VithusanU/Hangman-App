@@ -228,3 +228,11 @@ returnButton.addEventListener('click', () => {
 
 
 
+document.addEventListener('keydown', (event) => {
+    const key = event.key.toUpperCase(); // Make sure it matches the uppercase letters you generate
+    const button = document.querySelector(`button[data-letter="${key}"]`);
+
+    if (button && !button.disabled) {
+        button.click(); // Simulate click
+    }
+});
