@@ -99,12 +99,14 @@ window.addEventListener('load', () => {
     }
 });
 
-// === Background Music: unmute on first user interaction ===
+// === Background Music: start on first user interaction ===
 document.addEventListener('click', function unlock() {
     const music = document.getElementById('bg-music');
     if (music) {
         music.muted = false;
         music.volume = 0.4;
+        if (music.paused) {
+            music.play().catch(() => {});
+        }
     }
-    document.removeEventListener('click', unlock);
 }, { once: true });
