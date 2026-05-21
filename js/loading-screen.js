@@ -99,8 +99,12 @@ window.addEventListener('load', () => {
     }
 });
 
-// === Background Music Volume Control ===
-const music = document.getElementById('bg-music');
-if (music) {
-    music.volume = 0.4;
-}
+// === Background Music: unmute on first user interaction ===
+document.addEventListener('click', function unlock() {
+    const music = document.getElementById('bg-music');
+    if (music) {
+        music.muted = false;
+        music.volume = 0.4;
+    }
+    document.removeEventListener('click', unlock);
+}, { once: true });

@@ -49,8 +49,6 @@ globalThis.livesLeft = 0;
 startGameButton.addEventListener('click', () => {
     startGameButton.style.display = 'none';
     sound.play();
-    const bgMusic = document.getElementById('bg-music');
-    if (bgMusic) bgMusic.play();
 
     modeButtons.forEach(button => {
         button.style.display = 'block';
