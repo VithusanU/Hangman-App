@@ -1,91 +1,81 @@
-# 🎮 Hangman Game
-An interactive Hangman game built with HTML, CSS, and JavaScript. This game lets players guess a hidden word one letter at a time, with hints and lives limiting the number of wrong guesses allowed.
+# Hangman
 
-## 📌 Features
-- 🔤 **Letter Guessing** – Players guess the word one letter at a time.  
-- 🧠 **Category-based Hints** – Hints are based on categories: Animals, Foods, Sports, Games, and Companies.  
-- 💔 **Limited Lives** – 7 chances before the game ends.  
-- 🖼️ **Dynamic Display** – Correct letters are revealed; incorrect guesses are tracked visually.  
-- 🕹️ **Game Over / Play Again** – UI updates based on win or loss with a restart button. 
+A browser-based Hangman game built with vanilla HTML, CSS, and JavaScript. Players guess a hidden word one letter at a time across five categories, with seven lives and audio feedback throughout.
 
-## 🚀 Getting Started
-✅ Prerequisites
-A modern web browser (Chrome, Firefox, Edge, Safari, etc.)
+> **Live:** [vithusanu.github.io/Hangman-App](https://vithusanu.github.io/Hangman-App)
 
-## 📂 Installation
-```git
-git clone https://github.com/your-username/hangman-game.git
-cd hangman-game
+---
+
+## Features
+
+- **Category-based word selection** — Animals, Foods, Sports, Games, and Companies
+- **Seven lives** — incorrect guesses are tracked and displayed visually
+- **Audio feedback** — distinct sounds for correct guesses, incorrect guesses, win, and loss
+- **Dynamic letter reveal** — correct letters appear in position; incorrect guesses are tracked on screen
+- **Win / lose states** — clear end-game UI with a Play Again option
+- **Tested** — game logic covered with a Mocha/JSDOM test suite
+
+---
+
+## Tech
+
+- HTML, CSS, JavaScript (no frameworks)
+- Mocha + JSDOM for unit tests
+
+---
+
+## Getting Started
+
+```bash
+git clone https://github.com/VithusanU/Hangman-App.git
+cd Hangman-App
 ```
- Then open index.html in your browser.
 
-## 🧾 How to Play
-**1) Start Game:** A word is randomly selected from a category.
+Open `index.html` in a browser, or run a local server:
 
-**2) Guess Letters:** Click on letters to guess the hidden word.
+```bash
+npx serve .
+```
 
-**3) Correct Guess:** The letter is revealed in the word.
+### Running Tests
 
-**4) Incorrect Guess:** A life is lost; max 7 lives.
+```bash
+npm install
+npm test
+```
 
-**5) Win:** Guess the full word before losing all lives.
+---
 
-**6) Lose:** Game ends if all lives are lost.
+## Project Structure
 
-**7) Play Again:** Click the "Play Again" button to start a new game.
-
-## 📁 Project Structure
-```git
-/hangman-game
-├── .vscode
-├── /audio
-│   └── Lil Tecca.mp3
-│   └── old-radio-button=click.mp3
-│   └── pop.mp3
-│   └── curtain.mp3
-├── /css
-│   └── reset.css
-│   └── style.css # Styling and visual layout
-├── /image
-│   └── empty-heart.img
-│   └── Main-scene.gif
-│   └── starry.svg
-├── /js
+```
+Hangman-App/
+├── css/
+│   ├── reset.css
+│   └── style.css
+├── js/
+│   ├── game-logic.js       # Core game state and word selection
+│   ├── main-game.js        # DOM interactions and UI updates
 │   └── loading-screen.js
-│   └── main-game.js
-│   └── game-logic.js  # Core game functionality
-├── node_modules
-├──/ test
-│   └── test.js
-├── index.html        # Main HTML structure
-├── LICENSE
-├── package-lock.json
-├── package.json
-└── README.md         # Game overview and documentation
+├── audio/                  # Sound effects
+├── image/                  # Background and UI images
+├── test/
+│   └── test.js             # Mocha unit tests
+└── index.html
 ```
-### ⚙️ Game Logic Overview
-- The game starts by choosing a **random word** from a predefined list.
 
-- The word is hidden using underscores (_ _ _), updated as correct letters are guessed.
+---
 
-- **Lives counter **tracks incorrect guesses.
+## What I Learned
 
-- After 7 incorrect guesses, the game ends with a loss message.
+This was my first project applying test-driven thinking to a frontend app — writing tests for game logic before building the UI. It also reinforced clean separation between game state (logic) and presentation (DOM manipulation).
 
-- The player can click **"Play Again"** to restart the game.
+---
 
-## 🛠️ Planned Improvements
-- 🌐 Use a **word API **to fetch more dynamic and diverse word sets.
+## License
 
-- 🎨 Improve UI/UX with smoother animations and transitions.
+MIT
 
-- 🧮 Add **score tracking** and round-based play.
+---
 
-- 🛡️ Allow game mode customization: number of lives, category filters, etc.
-
-- 📱 Make mobile-responsive design adjustments.
-
-## 📝 License
-This project is licensed under the MIT License.
-See the LICENSE file for details.
-
+*Built by [Vithusan Uruthirakumaran](https://github.com/VithusanU)*
